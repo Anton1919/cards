@@ -1,0 +1,16 @@
+@import "src/styles/constants";
+@import "src/styles/mixins";
+
+.primary {
+  @include button($primary-color, $font-light-color);
+}
+
+.transparent {
+  @include button($secondary-color, $font-dark-color);
+  box-shadow: 0px 2px 10px rgba(109, 109, 109, 0.25), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+}
+
+.danger {
+  @include button($danger-color, $font-light-color);
+  box-shadow: 0px 4px 18px rgba(255, 54, 54, 0.35), inset 0px 1px 0px rgba(255, 255, 255, 0.3);
+}

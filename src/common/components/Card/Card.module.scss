@@ -1,0 +1,20 @@
+@import "src/styles/constants";
+
+.card {
+  margin-top: 60px;
+  min-height: 204px;
+  min-width: 413px;
+  background-color: $font-light-color;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
+  border-radius: 2px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 35px 35px 40px 35px;
+  height: 100%;
+  width: 100%;
+}

@@ -1,0 +1,70 @@
+@import "src/styles/constants";
+
+.login {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+  width: 347px;
+}
+
+.rememberMe {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 24px;
+
+  & span {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: $font-dark-color;
+    margin-left: 12px;
+  }
+}
+
+.forgotPassword {
+  margin-top: 28px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+
+  & a {
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 17px;
+    color: $font-dark-color;
+  }
+}
+
+.btnWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 69px;
+  width: 100%;
+}
+
+.signUp {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 31px;
+
+  & span {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+    color: $font-dark-color;
+    opacity: 0.5;
+  }
+
+  & a {
+    margin-top: 11px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: $primary-color;
+  }
+}
