@@ -1,0 +1,63 @@
+@import "src/styles/constants";
+
+.image {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  & label {
+    cursor: pointer;
+  }
+
+  & img {
+    width: 96px;
+    height: 96px;
+  }
+
+  &::before {
+    position: absolute;
+    content: '';
+    width: 32px;
+    height: 32px;
+    bottom: 0;
+    right: 0;
+    background-image: url("../../assets/icons/camera.svg");
+  }
+}
+
+
+.nickname {
+  margin-top: 17px;
+}
+
+.emailDescription {
+  margin-top: 14px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  color: $font-dark-color;
+  opacity: 0.5;
+}
+
+.btn {
+  margin-top: 29px;
+  position: relative;
+  width: 127px;
+
+  & button {
+    &::before {
+      position: absolute;
+      content: '';
+      width: 16px;
+      height: 16px;
+      top: 10px;
+      left: 10px;
+      background-image: url("../../assets/icons/logout.svg");
+      background-repeat: no-repeat;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-@import "src/styles/constants";
+@import "../../../../styles/constants";
 
 .label {
   display: flex;
@@ -31,7 +31,7 @@
   max-width: 347px;
   border: none;
   color: $font-dark-color;
-  padding: 5px;
+  padding: 5px 0;
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
@@ -45,4 +45,12 @@
   height: 15px;
   width: 22px;
   cursor: pointer;
+}
+
+.errorText {
+  font-size: 14px;
+  font-weight: bold;
+  color: $danger-color;
+  position: absolute;
+  bottom: -20px;
 }

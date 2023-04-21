@@ -1,0 +1,39 @@
+@import "src/styles/constants";
+
+.login {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+  width: 347px;
+}
+
+.btnWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 69px;
+  width: 100%;
+}
+
+.signIn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 31px;
+
+  & span {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+    color: $font-dark-color;
+    opacity: 0.5;
+  }
+
+  & a {
+    margin-top: 11px;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: $primary-color;
+  }
+}

@@ -1,0 +1,24 @@
+@import "src/styles/constants";
+
+.image {
+  width: 108px;
+  height: 108px;
+  margin-top: 30px;
+}
+
+.placeholder {
+  margin: 30px;
+  max-width: 348px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  text-align: center;
+  color: $font-dark-color;
+  opacity: 0.5;
+}
+
+.btn {
+  margin-top: 30px;
+  margin-bottom: 10px;
+  width: 347px;
+}

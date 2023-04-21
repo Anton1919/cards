@@ -1,0 +1,15 @@
+@import "../../../../styles/constants";
+
+.wrapper {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+}
+
+.labelText {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: $font-dark-color;
+  margin-left: 12px;
+}
