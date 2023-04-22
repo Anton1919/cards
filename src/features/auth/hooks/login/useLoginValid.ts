@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form';
+import { me } from '../../authReducer/authReducer';
 
 export type LoginDataType = {
   email: string;
