@@ -29,8 +29,8 @@ export const authAPI = {
     return instance.delete('auth/me', {});
   },
 
-  newPassword(password: string, resetPassword: string) {
-    return instance.post('auth/set-new-password', { password, resetPassword });
+  newPassword(password: string, resetPasswordToken: string) {
+    return instance.post('auth/set-new-password', { password, resetPasswordToken });
   },
 
   forgotPassword(email: string) {

@@ -17,7 +17,7 @@ export const useNewPasswordValid = (token: string | undefined) => {
 
   const onSubmit = ({ password }: FieldNewPass) => {
     if (token) {
-      dispatch(newPasswordThunk({ password: password, passwordToken: token }));
+      dispatch(newPasswordThunk({ password: password, resetPasswordToken: token }));
     }
   };
 
