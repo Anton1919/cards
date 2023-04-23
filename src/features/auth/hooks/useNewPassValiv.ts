@@ -23,7 +23,7 @@ export const useNewPasswordValid = (token: string | undefined) => {
 
   const passwordRules = {
     required: 'You must enter your password',
-    minLength: { value: 7, message: 'Field must be more than 3 characters' },
+    minLength: { value: 7, message: 'Field must be more than 7 characters' },
   };
 
   return { onSubmit, passwordRules, handleSubmit, register, isValid, errors };

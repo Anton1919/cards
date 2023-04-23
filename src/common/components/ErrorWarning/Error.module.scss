@@ -1,0 +1,16 @@
+@import "src/styles/constants";
+
+.error {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 9%;
+  background-color: $danger-color;
+  color: $font-light-color;
+  font-weight: bold;
+  border-radius: 4px;
+  width: 300px;
+  font-size: 17px;
+  padding: 3px;
+  text-align: center;
+}

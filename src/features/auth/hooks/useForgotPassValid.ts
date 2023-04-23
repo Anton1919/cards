@@ -16,7 +16,6 @@ export const useForgotPasswordValid = () => {
   } = useForm<ForgotField>({ mode: 'all' });
 
   const onSubmit = ({ email }: ForgotField) => {
-    alert(JSON.stringify(email));
     dispatch(forgotPassword(email));
   };
 

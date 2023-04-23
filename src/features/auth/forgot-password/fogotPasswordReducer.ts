@@ -1,5 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { authAPI } from '../api/authAPI';
+import { AxiosError } from 'axios';
+import { handleServerAppError } from '../../../utils/error-utils';
+import { setAppStatus } from '../../../app/appReducer';
 
 const initialState = {
   forgotStatus: false,
@@ -7,25 +10,28 @@ const initialState = {
 
 export const newPassword = createAsyncThunk(
   'auth/newPasswordThunk',
-  async (param: { password: string; resetPasswordToken: string }, thunkAPI) => {
+  async (param: { password: string; resetPasswordToken: string }, { dispatch, rejectWithValue }) => {
+    dispatch(setAppStatus({ status: 'loading' }));
     try {
-      const res = await authAPI.newPassword(param.password, param.resetPasswordToken);
-    } catch (e: any) {
-      thunkAPI.rejectWithValue({ someError: 'SomeError' });
-    } finally {
-      console.log('finally');
+      await authAPI.newPassword(param.password, param.resetPasswordToken);
+      dispatch(setAppStatus({ status: 'succeeded' }));
+    } catch (e) {
+      const error = e as AxiosError;
+      handleServerAppError(error, dispatch);
+      rejectWithValue({ someError: 'SomeError' });
     }
   }
 );
 
-export const forgotPassword = createAsyncThunk('auth/forgot', async (param: string, thunkAPI) => {
+export const forgotPassword = createAsyncThunk('auth/forgot', async (param: string, { dispatch, rejectWithValue }) => {
+  dispatch(setAppStatus({ status: 'loading' }));
   try {
-    const res = await authAPI.forgotPassword(param);
-    console.log(res.data);
-  } catch (e: any) {
-    return thunkAPI.rejectWithValue({ someError: 'SomeError' });
-  } finally {
-    console.log('finally');
+    await authAPI.forgotPassword(param);
+    dispatch(setAppStatus({ status: 'succeeded' }));
+  } catch (e) {
+    const error = e as AxiosError;
+    handleServerAppError(error, dispatch);
+    return rejectWithValue({ someError: 'SomeError' });
   }
 });
 

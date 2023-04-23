@@ -1,37 +1,28 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { authAPI } from '../features/auth/api/authAPI';
-import { setIsLoggedIn } from '../features/auth/authReducer/authReducer';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type RequestStatusType = 'idle' | 'loading' | 'succeeded' | 'failed';
-
-const initialState = {
-  status: 'idle' as RequestStatusType,
-  isInitialized: false,
+export type InitialStateType = {
+  status: RequestStatusType;
+  error: null | string;
 };
 
-export const initializeApp = createAsyncThunk('app/initializeApp', async (param, thunkAPI) => {
-  try {
-    const res = await authAPI.me();
-    console.log(res.data);
-    thunkAPI.dispatch(setIsLoggedIn({ isLoggedIn: true }));
-  } catch (err) {
-    // const error: AxiosError = err
-    console.log(err);
-    return thunkAPI.rejectWithValue({ someError: 'SomeError' });
-  } finally {
-    console.log('finally');
-  }
-});
+const initialState: InitialStateType = {
+  status: 'idle',
+  error: null,
+};
 
 const slice = createSlice({
   name: 'app',
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(initializeApp.fulfilled, (state, action) => {
-      state.isInitialized = true;
-    });
+  reducers: {
+    setAppStatus: (state, action: PayloadAction<{ status: RequestStatusType }>) => {
+      state.status = action.payload.status;
+    },
+    setAppError: (state, action: PayloadAction<{ error: string | null }>) => {
+      state.error = action.payload.error;
+    },
   },
 });
 
 export const appReducer = slice.reducer;
+export const { setAppStatus, setAppError } = slice.actions;

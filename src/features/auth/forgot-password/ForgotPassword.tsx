@@ -10,9 +10,8 @@ import { PATHS } from '../../../common/routes/PATHS';
 
 const ForgotPassword = () => {
   const { handleSubmit, emailRules, onSubmit, register, errors } = useForgotPasswordValid();
-
   const forgot = useAppSelector((state) => state.forgot.forgotStatus);
-  console.log('Forgot password', forgot);
+
   if (forgot) {
     return <Navigate to={PATHS.checkEmail} />;
   }

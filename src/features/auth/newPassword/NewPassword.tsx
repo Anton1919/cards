@@ -11,7 +11,6 @@ import { PATHS } from '../../../common/routes/PATHS';
 const NewPassword = () => {
   const { token } = useParams();
   const forgotStatus = useAppSelector((state) => state.forgot.forgotStatus);
-  console.log('New password', forgotStatus);
   const { handleSubmit, passwordRules, onSubmit, register, errors } = useNewPasswordValid(token);
 
   if (forgotStatus) {

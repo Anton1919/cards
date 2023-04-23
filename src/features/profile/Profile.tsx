@@ -13,6 +13,8 @@ const Profile = () => {
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const dispatch = useAppDispatch();
 
+  console.log(isLoggedIn);
+
   if (!isLoggedIn) {
     return <Navigate to={PATHS.login} />;
   }

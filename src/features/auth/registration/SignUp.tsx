@@ -11,9 +11,7 @@ import { useAppSelector } from '../../../app/store';
 
 const SignUp = () => {
   const { handleSubmit, emailRules, passwordRules, onSubmit, register, errors, cPasswordRules } = useRegisterValid();
-
   const signUp = useAppSelector((state) => state.auth.signUp);
-  console.log(signUp);
 
   if (signUp) {
     return <Navigate to={PATHS.login} />;

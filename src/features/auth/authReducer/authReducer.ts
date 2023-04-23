@@ -1,43 +1,66 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { authAPI, LoginType } from '../api/authAPI';
+import { setAppStatus } from '../../../app/appReducer';
+import { AxiosError } from 'axios';
+import { handleServerAppError } from '../../../utils/error-utils';
 
 export type InitialStateType = typeof initialState;
 
 const initialState = {
-  status: 'idle',
   isLoggedIn: false,
+  isInitialized: false,
   signUp: false,
 };
 
-export const signUp = createAsyncThunk('auth/signUp', async (param: { email: string; password: string }, thunkAPI) => {
+export const signUp = createAsyncThunk(
+  'auth/signUp',
+  async (param: { email: string; password: string }, { rejectWithValue, dispatch }) => {
+    try {
+      await authAPI.registration(param);
+    } catch (e) {
+      const error = e as AxiosError;
+      handleServerAppError(error, dispatch);
+      return rejectWithValue({ someError: 'SomeError' });
+    }
+  }
+);
+
+export const logIn = createAsyncThunk('auth/logIn', async (param: LoginType, { rejectWithValue, dispatch }) => {
+  dispatch(setAppStatus({ status: 'loading' }));
   try {
-    const res = await authAPI.registration(param);
-    console.log(res.data);
-  } catch (e: any) {
-    return thunkAPI.rejectWithValue({ someError: 'SomeError' });
+    await authAPI.login(param);
+    dispatch(setAppStatus({ status: 'succeeded' }));
+  } catch (e) {
+    const error = e as AxiosError;
+    handleServerAppError(error, dispatch);
+    return rejectWithValue({ someError: 'SomeError' });
   }
 });
 
-export const logIn = createAsyncThunk('auth/logIn', async (param: LoginType, thunkAPI) => {
+export const logout = createAsyncThunk('auth/logout', async (param, { rejectWithValue, dispatch }) => {
+  dispatch(setAppStatus({ status: 'loading' }));
   try {
-    const res = await authAPI.login(param);
-    console.log(res.data);
-  } catch (e: any) {
-    return thunkAPI.rejectWithValue({ someError: 'SomeError' });
-  } finally {
-    console.log('finally');
+    await authAPI.logout();
+    dispatch(setAppStatus({ status: 'succeeded' }));
+  } catch (e) {
+    const error = e as AxiosError;
+    handleServerAppError(error, dispatch);
+    return rejectWithValue({ someError: 'SomeError' });
   }
 });
 
-export const logout = createAsyncThunk('auth/logout', async (param, thunkAPI) => {
+export const me = createAsyncThunk('auth/me', async (param, { dispatch, rejectWithValue }) => {
+  dispatch(setAppStatus({ status: 'loading' }));
   try {
-    const res = await authAPI.logout();
-    console.log(res.data);
-    return;
-  } catch (e: any) {
-    return thunkAPI.rejectWithValue({ someError: 'SomeError' });
-  } finally {
-    console.log('finally');
+    await authAPI.me();
+    dispatch(setIsLoggedIn({ isLoggedIn: true }));
+    dispatch(setIsInitialized({ isInitialized: true }));
+    dispatch(setAppStatus({ status: 'succeeded' }));
+  } catch (e) {
+    dispatch(setIsInitialized({ isInitialized: true }));
+    const error = e as AxiosError;
+    handleServerAppError(error, dispatch);
+    return rejectWithValue({});
   }
 });
 
@@ -45,8 +68,11 @@ const slice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setIsLoggedIn(state, action: PayloadAction<{ isLoggedIn: boolean }>) {
+    setIsLoggedIn: (state, action: PayloadAction<{ isLoggedIn: boolean }>) => {
       state.isLoggedIn = action.payload.isLoggedIn;
+    },
+    setIsInitialized: (state, action: PayloadAction<{ isInitialized: boolean }>) => {
+      state.isInitialized = action.payload.isInitialized;
     },
   },
   extraReducers: (builder) => {
@@ -64,4 +90,4 @@ const slice = createSlice({
 });
 
 export const authReducer = slice.reducer;
-export const { setIsLoggedIn } = slice.actions;
+export const { setIsLoggedIn, setIsInitialized } = slice.actions;

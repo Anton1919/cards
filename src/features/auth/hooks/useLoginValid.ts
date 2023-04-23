@@ -10,7 +10,6 @@ export type LoginDataType = {
 
 export const useLoginValid = () => {
   const dispatch = useAppDispatch();
-
   const {
     register,
     handleSubmit,
@@ -18,13 +17,11 @@ export const useLoginValid = () => {
   } = useForm<LoginDataType>({ mode: 'all' });
 
   const onSubmit = (data: LoginDataType) => {
-    alert(JSON.stringify(data));
     dispatch(logIn(data));
   };
-
   const passwordRules = {
     required: 'You must enter your password',
-    minLength: { value: 7, message: 'Field must be more than 3 characters' },
+    minLength: { value: 7, message: 'Field must be more than 7 characters' },
   };
 
   const emailRules = { required: 'You must enter your Email' };
