@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '../../../app/store';
-import { newPasswordThunk } from '../newPassword/newPassThunk';
+import { newPassword } from '../forgot-password/fogotPasswordReducer';
 
 type FieldNewPass = {
   password: string;
@@ -17,7 +17,7 @@ export const useNewPasswordValid = (token: string | undefined) => {
 
   const onSubmit = ({ password }: FieldNewPass) => {
     if (token) {
-      dispatch(newPasswordThunk({ password: password, resetPasswordToken: token }));
+      dispatch(newPassword({ password: password, resetPasswordToken: token }));
     }
   };
 

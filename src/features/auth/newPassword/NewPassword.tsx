@@ -4,14 +4,19 @@ import s from './NewPassword..module.scss';
 import Button from '../../../common/components/Button/Button';
 import PasswordInput from '../../../common/components/Input/PasswordInput/PasswordInput';
 import { useNewPasswordValid } from '../hooks/useNewPassValiv';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
+import { useAppSelector } from '../../../app/store';
+import { PATHS } from '../../../common/routes/PATHS';
 
 const NewPassword = () => {
   const { token } = useParams();
-
-  console.log(token);
-
+  const forgotStatus = useAppSelector((state) => state.forgot.forgotStatus);
+  console.log('New password', forgotStatus);
   const { handleSubmit, passwordRules, onSubmit, register, errors } = useNewPasswordValid(token);
+
+  if (forgotStatus) {
+    return <Navigate to={PATHS.login} />;
+  }
 
   return (
     <Card title={'Create new password'}>
