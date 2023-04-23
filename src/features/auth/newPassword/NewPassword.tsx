@@ -25,11 +25,9 @@ const NewPassword = () => {
             error={errors.password?.message}
           />
         </div>
-
         <div className={s.placeholder}>
           <span>Create new password and we will send you further instructions to email</span>
         </div>
-
         <div className={s.btn}>
           <Button name={'Create new password'} />
         </div>
