@@ -4,7 +4,7 @@ export const PATHS = {
   register: '/register',
   recovery: '/forgot-password',
   checkEmail: '/check-email',
-  newPassword: '/new-password',
+  newPassword: '/set-new-password/:token',
   notFound: '/404',
   unknown: '/*',
 };

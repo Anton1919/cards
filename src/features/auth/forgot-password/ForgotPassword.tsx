@@ -4,14 +4,18 @@ import BaseInput from '../../../common/components/Input/BaseInput/BaseInput';
 import s from './ForgotPassword.module.scss';
 import Button from '../../../common/components/Button/Button';
 import { Navigate, NavLink } from 'react-router-dom';
+import { useForgotPasswordValid } from '../hooks/useForgotPassValid';
+import { useAppSelector } from '../../../app/store';
 import { PATHS } from '../../../common/routes/PATHS';
-import { useLoginValid } from '../hooks/login/useLoginValid';
 
 const ForgotPassword = () => {
-  const { handleSubmit, emailRules, onSubmit, register, errors } = useLoginValid();
-  const onHandler = () => {
+  const { handleSubmit, emailRules, onSubmit, register, errors } = useForgotPasswordValid();
+
+  const forgot = useAppSelector((state) => state.forgot.forgotPassword);
+
+  if (forgot) {
     return <Navigate to={PATHS.checkEmail} />;
-  };
+  }
 
   return (
     <Card title={'Forgot your password?'}>
@@ -30,7 +34,7 @@ const ForgotPassword = () => {
           <span>Enter your email address and we will send you further instructions </span>
         </div>
         <div className={s.btn}>
-          <Button name={'Send Instructions'} handler={onHandler} />
+          <Button name={'Send Instructions'} />
         </div>
         <div className={s.comeBack}>
           <span>Did you remember your password?</span>

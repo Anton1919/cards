@@ -1,15 +1,27 @@
 import { instance } from '../../../common/constants/instance';
+import axios from 'axios';
+
+type RegisterType = {
+  email: string;
+  password: string;
+};
+
+export type LoginType = {
+  email: string;
+  password: string;
+  rememberMe: boolean;
+};
 
 export const authAPI = {
   me() {
     return instance.post('auth/me');
   },
 
-  registration(data: any) {
+  registration(data: RegisterType) {
     return instance.post('auth/register', data);
   },
 
-  login(data: any) {
+  login(data: LoginType) {
     return instance.post('auth/login', data);
   },
 
@@ -25,13 +37,9 @@ export const authAPI = {
     const forgot = {
       email,
       from: 'test-front-admin <@>',
-      message:
-        '<div style="background-color: lime; padding: 15px">\n' +
-        'password recovery link: \n' +
-        "<a href='https://Anton1919.github.io/cards/#/set-new-password/$token$'>\n" +
-        'link</a>\n' +
-        '</div>',
+      message: `<div style="background-color: lime; padding: 15px">password recovery link: 
+                <a href='https://Anton1919.github.io/cards/#/set-new-password/$token$'>link</a></div>`,
     };
-    return instance.post('auth/forgot', forgot);
+    return axios.post('https://neko-back.herokuapp.com/2.0/auth/forgot', forgot);
   },
 };

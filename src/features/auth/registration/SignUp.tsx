@@ -3,13 +3,21 @@ import Card from '../../../common/components/Card/Card';
 import s from './SignUp.module.scss';
 import Button from '../../../common/components/Button/Button';
 import BaseInput from '../../../common/components/Input/BaseInput/BaseInput';
-import { NavLink } from 'react-router-dom';
+import { Navigate, NavLink } from 'react-router-dom';
 import { PATHS } from '../../../common/routes/PATHS';
-import { useRegisterValid } from '../hooks/register/useRegisterValid';
+import { useRegisterValid } from '../hooks/useRegisterValid';
 import PasswordInput from '../../../common/components/Input/PasswordInput/PasswordInput';
+import { useAppSelector } from '../../../app/store';
 
 const SignUp = () => {
   const { handleSubmit, emailRules, passwordRules, onSubmit, register, errors, cPasswordRules } = useRegisterValid();
+
+  const signUp = useAppSelector((state) => state.auth.signUp);
+  console.log(signUp);
+
+  if (signUp) {
+    return <Navigate to={PATHS.login} />;
+  }
 
   return (
     <Card title={'Sign Up'}>

@@ -1,5 +1,6 @@
 import { useForm } from 'react-hook-form';
-import { me } from '../../authReducer/authReducer';
+import { logIn } from '../authReducer/authReducer';
+import { useAppDispatch } from '../../../app/store';
 
 export type LoginDataType = {
   email: string;
@@ -8,6 +9,8 @@ export type LoginDataType = {
 };
 
 export const useLoginValid = () => {
+  const dispatch = useAppDispatch();
+
   const {
     register,
     handleSubmit,
@@ -16,11 +19,12 @@ export const useLoginValid = () => {
 
   const onSubmit = (data: LoginDataType) => {
     alert(JSON.stringify(data));
+    dispatch(logIn(data));
   };
 
   const passwordRules = {
     required: 'You must enter your password',
-    minLength: { value: 3, message: 'Field must be more than 3 characters' },
+    minLength: { value: 7, message: 'Field must be more than 3 characters' },
   };
 
   const emailRules = { required: 'You must enter your Email' };

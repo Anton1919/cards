@@ -3,10 +3,13 @@ import { combineReducers } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import { authReducer } from '../features/auth/authReducer/authReducer';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { appReducer } from './appReducer';
+import { forgotReducer } from '../features/auth/forgot-password/fogotPasswordReducer';
 
 const rootReducer = combineReducers({
+  app: appReducer,
   auth: authReducer,
-  // forgot: forgotReducer,
+  forgot: forgotReducer,
   // profile: profileReducer,
 });
 

@@ -1,4 +1,6 @@
 import { useForm } from 'react-hook-form';
+import { useAppDispatch } from '../../../app/store';
+import { signUp } from '../authReducer/authReducer';
 
 export type RegisterFormValid = {
   email: string;
@@ -7,6 +9,8 @@ export type RegisterFormValid = {
 };
 
 export const useRegisterValid = () => {
+  const dispatch = useAppDispatch();
+
   const {
     register,
     handleSubmit,
@@ -17,6 +21,7 @@ export const useRegisterValid = () => {
   const onSubmit = (data: RegisterFormValid): void => {
     const { email, password } = data;
     alert(JSON.stringify({ email, password }));
+    dispatch(signUp({ email, password }));
   };
 
   const emailPattern = {
@@ -29,7 +34,7 @@ export const useRegisterValid = () => {
 
   const passwordRules = {
     required: 'You must enter your password',
-    minLength: { value: 3, message: 'Field must be more than 3 characters' },
+    minLength: { value: 7, message: 'Field must be more than 3 characters' },
   };
 
   const cPasswordRules = {

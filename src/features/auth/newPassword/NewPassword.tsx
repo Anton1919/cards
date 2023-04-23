@@ -2,11 +2,16 @@ import React from 'react';
 import Card from '../../../common/components/Card/Card';
 import s from './NewPassword..module.scss';
 import Button from '../../../common/components/Button/Button';
-import { useLoginValid } from '../hooks/login/useLoginValid';
 import PasswordInput from '../../../common/components/Input/PasswordInput/PasswordInput';
+import { useNewPasswordValid } from '../hooks/useNewPassValiv';
+import { useParams } from 'react-router-dom';
 
 const NewPassword = () => {
-  const { handleSubmit, passwordRules, onSubmit, register, errors } = useLoginValid();
+  const { token } = useParams();
+
+  console.log(token);
+
+  const { handleSubmit, passwordRules, onSubmit, register, errors } = useNewPasswordValid(token);
 
   return (
     <Card title={'Create new password'}>

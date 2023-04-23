@@ -3,14 +3,22 @@ import Card from '../../../common/components/Card/Card';
 import s from './SignIn.module.scss';
 import Button from '../../../common/components/Button/Button';
 import BaseInput from '../../../common/components/Input/BaseInput/BaseInput';
-import { NavLink } from 'react-router-dom';
+import { Navigate, NavLink } from 'react-router-dom';
 import { PATHS } from '../../../common/routes/PATHS';
-import { useLoginValid } from '../hooks/login/useLoginValid';
+import { useLoginValid } from '../hooks/useLoginValid';
 import PasswordInput from '../../../common/components/Input/PasswordInput/PasswordInput';
 import CheckboxInput from '../../../common/components/Input/CheckBoxInput/CheckboxInput';
+import { useAppSelector } from '../../../app/store';
 
 const SignIn = () => {
   const { handleSubmit, emailRules, onSubmit, register, isValid, errors, passwordRules } = useLoginValid();
+
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+
+  if (isLoggedIn) {
+    return <Navigate to={PATHS.profile} />;
+  }
+
   return (
     <Card title={'Sign In'}>
       <form className={s.login} onSubmit={handleSubmit(onSubmit)}>
