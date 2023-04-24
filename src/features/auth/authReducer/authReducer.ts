@@ -58,8 +58,7 @@ export const me = createAsyncThunk('auth/me', async (param, { dispatch, rejectWi
     dispatch(setAppStatus({ status: 'succeeded' }));
   } catch (e) {
     dispatch(setIsInitialized({ isInitialized: true }));
-    const error = e as AxiosError;
-    handleServerAppError(error, dispatch);
+    dispatch(setAppStatus({ status: 'succeeded' }));
     return rejectWithValue({});
   }
 });

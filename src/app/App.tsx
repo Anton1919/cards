@@ -5,20 +5,21 @@ import Main from '../common/components/Main/Main';
 import s from './App.module.scss';
 import RoutesPage from '../common/routes/RoutesPage';
 import { useAppDispatch, useAppSelector } from './store';
-import PreLoader from '../common/components/Loader/PreLoader';
-import Error from '../common/components/ErrorWarning/Error';
+import { PreLoader } from '../common/components/Loader/PreLoader';
 import { me } from '../features/auth/authReducer/authReducer';
+import { ErrorSnackbar } from '../common/components/ErrorSnackBar/ErrorSnackBar';
+import { selectError, selectIsInitialized } from '../common/selectors/selectors';
 
 const App = () => {
   const dispatch = useAppDispatch();
-  const isInitialized = useAppSelector((state) => state.auth.isInitialized);
-  const status = useAppSelector((state) => state.app.status);
-  const error = useAppSelector((state) => state.app.error);
+  const isInitialized = useAppSelector(selectIsInitialized);
+  const error = useAppSelector(selectError);
 
   useEffect(() => {
     dispatch(me());
   }, []);
-  if (!isInitialized || status === 'loading') {
+
+  if (!isInitialized) {
     return <PreLoader />;
   }
 
@@ -27,8 +28,7 @@ const App = () => {
       <Header>
         <Button name={'Sign In'} />
       </Header>
-      {error && <Error message={error as string} />}
-      {/*<ErrorSnackbar />*/}
+      {error && <ErrorSnackbar />}
       <Main>
         <RoutesPage />
       </Main>

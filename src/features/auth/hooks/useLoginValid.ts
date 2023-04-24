@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { logIn } from '../authReducer/authReducer';
 import { useAppDispatch } from '../../../app/store';
+import { useState } from 'react';
 
 export type LoginDataType = {
   email: string;
@@ -10,14 +11,18 @@ export type LoginDataType = {
 
 export const useLoginValid = () => {
   const dispatch = useAppDispatch();
+  const [load, setLoad] = useState(false);
+
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<LoginDataType>({ mode: 'all' });
+  } = useForm<LoginDataType>({ mode: 'onChange' });
 
-  const onSubmit = (data: LoginDataType) => {
-    dispatch(logIn(data));
+  const onSubmit = async (data: LoginDataType) => {
+    setLoad(true);
+    await dispatch(logIn(data));
+    setLoad(false);
   };
   const passwordRules = {
     required: 'You must enter your password',
@@ -26,5 +31,5 @@ export const useLoginValid = () => {
 
   const emailRules = { required: 'You must enter your Email' };
 
-  return { onSubmit, emailRules, handleSubmit, register, isValid, passwordRules, errors };
+  return { onSubmit, emailRules, handleSubmit, register, isValid, passwordRules, errors, load };
 };

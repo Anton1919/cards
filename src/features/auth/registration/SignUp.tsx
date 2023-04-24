@@ -8,10 +8,13 @@ import { PATHS } from '../../../common/routes/PATHS';
 import { useRegisterValid } from '../hooks/useRegisterValid';
 import PasswordInput from '../../../common/components/Input/PasswordInput/PasswordInput';
 import { useAppSelector } from '../../../app/store';
+import { selectSignUp } from '../../../common/selectors/selectors';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const SignUp = () => {
-  const { handleSubmit, emailRules, passwordRules, onSubmit, register, errors, cPasswordRules } = useRegisterValid();
-  const signUp = useAppSelector((state) => state.auth.signUp);
+  const { handleSubmit, emailRules, passwordRules, onSubmit, register, errors, cPasswordRules, load } =
+    useRegisterValid();
+  const signUp = useAppSelector(selectSignUp);
 
   if (signUp) {
     return <Navigate to={PATHS.login} />;
@@ -42,9 +45,7 @@ const SignUp = () => {
           register={register}
           error={errors.confirmPassword?.message}
         />
-        <div className={s.btnWrapper}>
-          <Button name={'Sign Up'} />
-        </div>
+        <div className={s.btnWrapper}>{load ? <CircularProgress size={30} /> : <Button name={'Sign Up'} />}</div>
         <div className={s.signIn}>
           <span>Already have an account?</span>
           <NavLink to={PATHS.login}>Sign In</NavLink>

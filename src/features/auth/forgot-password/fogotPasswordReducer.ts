@@ -16,8 +16,7 @@ export const newPassword = createAsyncThunk(
       await authAPI.newPassword(param.password, param.resetPasswordToken);
       dispatch(setAppStatus({ status: 'succeeded' }));
     } catch (e) {
-      const error = e as AxiosError;
-      handleServerAppError(error, dispatch);
+      dispatch(setAppStatus({ status: 'succeeded' }));
       rejectWithValue({ someError: 'SomeError' });
     }
   }

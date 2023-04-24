@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useAppDispatch } from '../../../app/store';
 import { signUp } from '../authReducer/authReducer';
+import { useState } from 'react';
 
 export type RegisterFormValid = {
   email: string;
@@ -9,6 +10,7 @@ export type RegisterFormValid = {
 };
 
 export const useRegisterValid = () => {
+  const [load, setLoad] = useState(false);
   const dispatch = useAppDispatch();
 
   const {
@@ -18,9 +20,11 @@ export const useRegisterValid = () => {
     getValues,
   } = useForm<RegisterFormValid>({ mode: 'all' });
 
-  const onSubmit = (data: RegisterFormValid): void => {
+  const onSubmit = async (data: RegisterFormValid) => {
+    setLoad(true);
     const { email, password } = data;
-    dispatch(signUp({ email, password }));
+    await dispatch(signUp({ email, password }));
+    setLoad(false);
   };
 
   const emailPattern = {
@@ -44,5 +48,5 @@ export const useRegisterValid = () => {
     },
   };
 
-  return { onSubmit, emailRules, passwordRules, handleSubmit, register, errors, cPasswordRules };
+  return { onSubmit, emailRules, passwordRules, handleSubmit, register, errors, cPasswordRules, load };
 };

@@ -7,10 +7,12 @@ import { Navigate, NavLink } from 'react-router-dom';
 import { useForgotPasswordValid } from '../hooks/useForgotPassValid';
 import { useAppSelector } from '../../../app/store';
 import { PATHS } from '../../../common/routes/PATHS';
+import { selectForgotStatus } from '../../../common/selectors/selectors';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const ForgotPassword = () => {
-  const { handleSubmit, emailRules, onSubmit, register, errors } = useForgotPasswordValid();
-  const forgot = useAppSelector((state) => state.forgot.forgotStatus);
+  const { handleSubmit, emailRules, onSubmit, register, errors, load } = useForgotPasswordValid();
+  const forgot = useAppSelector(selectForgotStatus);
 
   if (forgot) {
     return <Navigate to={PATHS.checkEmail} />;
@@ -32,9 +34,7 @@ const ForgotPassword = () => {
         <div className={s.placeholder}>
           <span>Enter your email address and we will send you further instructions </span>
         </div>
-        <div className={s.btn}>
-          <Button name={'Send Instructions'} />
-        </div>
+        <div className={s.btn}>{load ? <CircularProgress size={30} /> : <Button name={'Send Instructions'} />}</div>
         <div className={s.comeBack}>
           <span>Did you remember your password?</span>
           <NavLink to={'/login'}>Try logging in</NavLink>

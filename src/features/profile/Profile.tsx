@@ -8,18 +8,17 @@ import { useAppDispatch, useAppSelector } from '../../app/store';
 import { Navigate } from 'react-router-dom';
 import { PATHS } from '../../common/routes/PATHS';
 import { logout } from '../auth/authReducer/authReducer';
+import { selectIsLoggedIn } from '../../common/selectors/selectors';
 
 const Profile = () => {
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
   const dispatch = useAppDispatch();
-
-  console.log(isLoggedIn);
 
   if (!isLoggedIn) {
     return <Navigate to={PATHS.login} />;
   }
 
-  const logOut = () => {
+  const handleLogOut = () => {
     dispatch(logout());
   };
 
@@ -41,7 +40,7 @@ const Profile = () => {
       </div>
 
       <div className={s.btn}>
-        <Button name={'Log out'} variant={'transparent'} handler={logOut} />
+        <Button name={'Log out'} variant={'transparent'} handler={handleLogOut} />
       </div>
     </Card>
   );

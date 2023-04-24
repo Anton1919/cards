@@ -22,7 +22,10 @@ const PasswordInput = <TFormValues extends Record<string, unknown>>({
         type={hide ? 'password' : 'text'}
         className={s.input}
       />
-      <img className={s.icon} src={eye} alt='icon' onClick={onChangeHandler} />
+      <div className={hide ? '' : s.hidePassword} onClick={onChangeHandler}>
+        <img className={s.icon} src={eye} alt='icon' />
+      </div>
+
       {error && <div className={s.errorText}>{error || 'Error'}</div>}
     </label>
   );

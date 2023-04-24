@@ -9,11 +9,13 @@ import { useLoginValid } from '../hooks/useLoginValid';
 import PasswordInput from '../../../common/components/Input/PasswordInput/PasswordInput';
 import CheckboxInput from '../../../common/components/Input/CheckBoxInput/CheckboxInput';
 import { useAppSelector } from '../../../app/store';
+import { selectIsLoggedIn } from '../../../common/selectors/selectors';
+import CircularProgress from '@mui/material/CircularProgress';
 
 const SignIn = () => {
-  const { handleSubmit, emailRules, onSubmit, register, isValid, errors, passwordRules } = useLoginValid();
+  const { handleSubmit, emailRules, onSubmit, register, isValid, errors, passwordRules, load } = useLoginValid();
 
-  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useAppSelector(selectIsLoggedIn);
 
   if (isLoggedIn) {
     return <Navigate to={PATHS.profile} />;
@@ -43,7 +45,7 @@ const SignIn = () => {
           <NavLink to={PATHS.recovery}>Forgot Password?</NavLink>
         </div>
         <div className={s.btnWrapper}>
-          <Button name={'Sign In'} disabled={!isValid} />
+          {load ? <CircularProgress size={30} /> : <Button name={'Sign In'} disabled={!isValid} />}
         </div>
         <div className={s.signUp}>
           <span>Already have an account?</span>
