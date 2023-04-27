@@ -1,0 +1,28 @@
+@import "src/styles/constants";
+
+.container {
+  display: flex;
+  align-items: center;
+  //justify-content: flex-start;
+  //align-items: center;
+}
+
+.pages {
+  display: flex;
+  align-items: center;
+  //width: 20px;
+  //height: 20px;
+  //background-color: blue;
+  //color: white;
+  //text-align: center;
+}
+
+.selectWrapper {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 15px;
+  color: $font-dark-color;
+}

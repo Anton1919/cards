@@ -1,0 +1,29 @@
+@import "src/styles/constants";
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.slider {
+  display: flex;
+  column-gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 300px;
+}
+
+.value {
+  font-size: 20px;
+}
+
+.title {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  display: flex;
+  align-items: center;
+  color: $font-dark-color;
+  margin-bottom: 8px;
+}

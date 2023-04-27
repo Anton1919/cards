@@ -2,8 +2,12 @@ import React, { ChangeEvent, useState } from 'react';
 import s from './EditableSpan.module.scss';
 import editImg from '../../../assets/icons/edit.svg';
 
-const EditableSpan = () => {
-  const [text, setText] = useState('EditableSpan');
+type EditableTtype = {
+  name: string | undefined;
+};
+
+const EditableSpan = ({ name }: EditableTtype) => {
+  const [text, setText] = useState(name);
   const [edit, setEdit] = useState(false);
 
   const editModeHandler = () => {
@@ -33,7 +37,7 @@ const EditableSpan = () => {
       ) : (
         <div className={s.textWrapper}>
           <div className={s.text} onDoubleClick={editModeHandler}>
-            {text}
+            {text ? text : 'Click to change yor name'}
           </div>
           <img src={editImg} alt='edit' onClick={editModeHandler} />
         </div>

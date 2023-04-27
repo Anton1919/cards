@@ -1,0 +1,41 @@
+@import "src/styles/constants";
+
+.button {
+  padding: 2px;
+
+  background-color: $font-light-color;
+  border: 0;
+}
+
+.disabled {
+  pointer-events: none;
+
+  opacity: 0.5;
+}
+
+.thead {
+  background-color: $table-category-color;
+}
+
+.thead th {
+  font-weight: 600;
+}
+
+.tableContainer {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+.sortArrow {
+  cursor: pointer;
+
+  transform: rotate(180deg);
+
+  margin-left: 5px;
+
+  transition: transform .3s linear;
+}
+
+.sortArrowDown {
+  transform: rotate(0deg);
+}

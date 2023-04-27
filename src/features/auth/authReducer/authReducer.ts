@@ -3,6 +3,7 @@ import { authAPI, LoginType } from '../api/authAPI';
 import { setAppStatus } from '../../../app/appReducer';
 import { AxiosError } from 'axios';
 import { handleServerAppError } from '../../../utils/error-utils';
+import { setProfileData } from '../../profile/Profile/profileReducer';
 
 export type InitialStateType = typeof initialState;
 
@@ -28,7 +29,8 @@ export const signUp = createAsyncThunk(
 export const logIn = createAsyncThunk('auth/logIn', async (param: LoginType, { rejectWithValue, dispatch }) => {
   dispatch(setAppStatus({ status: 'loading' }));
   try {
-    await authAPI.login(param);
+    const res = await authAPI.login(param);
+    dispatch(setProfileData({ email: res.data.email, avatar: res.data.avatar, name: res.data.name }));
     dispatch(setAppStatus({ status: 'succeeded' }));
   } catch (e) {
     const error = e as AxiosError;
@@ -52,9 +54,10 @@ export const logout = createAsyncThunk('auth/logout', async (param, { rejectWith
 export const me = createAsyncThunk('auth/me', async (param, { dispatch, rejectWithValue }) => {
   dispatch(setAppStatus({ status: 'loading' }));
   try {
-    await authAPI.me();
+    const res = await authAPI.me();
     dispatch(setIsLoggedIn({ isLoggedIn: true }));
     dispatch(setIsInitialized({ isInitialized: true }));
+    dispatch(setProfileData({ email: res.data.email, avatar: res.data.avatar, name: res.data.name }));
     dispatch(setAppStatus({ status: 'succeeded' }));
   } catch (e) {
     dispatch(setIsInitialized({ isInitialized: true }));

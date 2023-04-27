@@ -17,7 +17,7 @@ export const newPassword = createAsyncThunk(
       dispatch(setAppStatus({ status: 'succeeded' }));
     } catch (e) {
       dispatch(setAppStatus({ status: 'succeeded' }));
-      rejectWithValue({ someError: 'SomeError' });
+      return rejectWithValue({ someError: 'SomeError' });
     }
   }
 );

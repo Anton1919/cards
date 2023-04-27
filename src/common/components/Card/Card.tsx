@@ -9,9 +9,11 @@ type CardPropsType = {
 const Card = ({ title, children }: CardPropsType) => {
   return (
     <div className={s.card}>
-      <div className={s.wrapper}>
-        <h2>{title}</h2>
-        {children}
+      <div className={s.inner}>
+        <div className={s.wrapper}>
+          <h2>{title}</h2>
+          {children}
+        </div>
       </div>
     </div>
   );
