@@ -9,6 +9,36 @@ export const packsAPI = {
       },
     });
   },
+
+  addPack(data: AddPackType) {
+    return instance.post<ResponseAddPackType>('cards/pack', data).then((res) => res.data);
+  },
+
+  deletePack(id: string) {
+    return instance.delete<ResponseDeletePackType>(`cards/pack?id=${id}`);
+  },
+};
+
+type ResponseDeletePackType = {
+  deletedCardsPack: PackType;
+  token: string;
+  tokenDeathTime: string;
+};
+
+type ResponseAddPackType = {
+  newCardsPack: PackType;
+  token: string;
+  tokenDeathTime: string;
+};
+
+type CardPropertiesType = {
+  name?: string;
+  deckCover?: string;
+  private?: boolean;
+};
+
+export type AddPackType = {
+  cardsPack: CardPropertiesType;
 };
 
 export type PackType = {

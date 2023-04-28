@@ -30,7 +30,9 @@ export const logIn = createAsyncThunk('auth/logIn', async (param: LoginType, { r
   dispatch(setAppStatus({ status: 'loading' }));
   try {
     const res = await authAPI.login(param);
-    dispatch(setProfileData({ email: res.data.email, avatar: res.data.avatar, name: res.data.name }));
+    dispatch(
+      setProfileData({ email: res.data.email, avatar: res.data.avatar, name: res.data.name, _id: res.data._id })
+    );
     dispatch(setAppStatus({ status: 'succeeded' }));
   } catch (e) {
     const error = e as AxiosError;
@@ -57,7 +59,9 @@ export const me = createAsyncThunk('auth/me', async (param, { dispatch, rejectWi
     const res = await authAPI.me();
     dispatch(setIsLoggedIn({ isLoggedIn: true }));
     dispatch(setIsInitialized({ isInitialized: true }));
-    dispatch(setProfileData({ email: res.data.email, avatar: res.data.avatar, name: res.data.name }));
+    dispatch(
+      setProfileData({ email: res.data.email, avatar: res.data.avatar, name: res.data.name, _id: res.data._id })
+    );
     dispatch(setAppStatus({ status: 'succeeded' }));
   } catch (e) {
     dispatch(setIsInitialized({ isInitialized: true }));

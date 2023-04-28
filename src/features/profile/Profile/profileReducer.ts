@@ -7,12 +7,14 @@ type InitialStateType = {
   email: string | undefined;
   name: string | undefined;
   avatar?: string | undefined | null;
+  _id: string;
 };
 
 const initialState: InitialStateType = {
   email: '',
   name: '',
   avatar: '',
+  _id: '',
 };
 
 export const changeMyProfile = createAsyncThunk('profile/myProfile', async (param, { dispatch, rejectWithValue }) => {
@@ -35,6 +37,7 @@ const slice = createSlice({
       state.email = action.payload.email;
       state.name = action.payload.name;
       state.avatar = action.payload.avatar;
+      state._id = action.payload._id;
     },
   },
 });

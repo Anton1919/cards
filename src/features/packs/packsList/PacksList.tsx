@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { memo, useCallback, useEffect } from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import s from './PackList.module.scss';
 import PackItem from './packItem/PackItem';
 import Paper from '@mui/material/Paper';
 import { useAppDispatch, useAppSelector } from '../../../app/store';
-import { getCards } from '../packsReducer';
+import { getPacks } from '../packsReducer';
 import { selectPacks } from '../selectors/selectors';
 import PaginationC from '../../../common/components/Pagination/PaginationC';
 
 const PackList = () => {
+  console.log('Pack List render');
   const dispatch = useAppDispatch();
   const packs = useAppSelector(selectPacks);
 
@@ -17,11 +18,11 @@ const PackList = () => {
   const pageCount = useAppSelector((state) => state.packs.pageCount);
 
   useEffect(() => {
-    dispatch(getCards({ page: 1, pageCount: 4 }));
+    dispatch(getPacks({ page: 1, pageCount: 4 }));
   }, []);
 
   const onChangePagination = (pageNumber: number, pageCount: number) => {
-    dispatch(getCards({ page: pageNumber, pageCount: pageCount }));
+    dispatch(getPacks({ page: pageNumber, pageCount: pageCount }));
   };
 
   return (

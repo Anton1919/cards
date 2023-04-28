@@ -19,12 +19,10 @@ const PaginationC = ({ totalCount, onChangePagination, pageCount, page }: Pagina
   ];
 
   const onChangeCallback = (event: any, page: number) => {
-    console.log(page);
     onChangePagination(page, pageCount);
   };
 
-  const onChangeSelect = (event: any) => {
-    console.log('Pagination', event);
+  const onChangeSelect = (event: number) => {
     onChangePagination(page, event);
   };
 
