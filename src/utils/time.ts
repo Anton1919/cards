@@ -1,4 +1,4 @@
-export const convertDate = (date: any) => {
+export const convertDate = (date: string) => {
   const splitDate = date.split('T')[0];
 
   const year = splitDate.split('-')[0];

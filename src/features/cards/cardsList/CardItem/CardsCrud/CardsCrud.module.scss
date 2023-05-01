@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  column-gap: 15px;
+}
+
+.icon {
+  height: 16px;
+  width: 16px;
+  cursor: pointer;
+
+  & img {
+    height: 100%;
+    width: 100%;
+  }
+}

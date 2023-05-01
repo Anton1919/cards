@@ -1,0 +1,56 @@
+import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {cardsAPI, CardsType} from "./api/cardsAPI";
+import {AxiosError} from "axios";
+import {handleServerAppError} from "../../utils/error-utils";
+import {setAppStatus} from "../../app/appReducer";
+
+type InitialStateType = {
+    cards: CardsType[]
+    cardsTotalCount: number
+    page: number
+    pageCount: number
+    packUserId: string
+    packName: string
+}
+
+const initialState: InitialStateType = {
+    cards: [],
+    cardsTotalCount: 0,
+    page: 1,
+    pageCount: 4,
+    packUserId: '',
+    packName: ''
+}
+
+export const getCardsTC = createAsyncThunk('cards/usersCards', async (cardsId: string | undefined, {dispatch, rejectWithValue}) => {
+    dispatch(setAppStatus({status: 'loading'}));
+    try {
+        const res = await cardsAPI.getCards(cardsId)
+        dispatch(setAppStatus({ status: 'succeeded' }));
+        return res.data
+    } catch (e) {
+        const error = e as AxiosError;
+        handleServerAppError(error, dispatch);
+        dispatch(setAppStatus({status: 'succeeded'}));
+        return rejectWithValue({});
+    }
+})
+
+const slice = createSlice({
+    name: 'cards',
+    initialState,
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            .addCase(getCardsTC.fulfilled, (state, action) => {
+                state.cards = action.payload.cards
+                state.cardsTotalCount = action.payload.cardsTotalCount
+                state.packName = action.payload.packName
+                state.packUserId = action.payload.packUserId
+                state.page = action.payload.page
+                state.pageCount = action.payload.pageCount
+            })
+    }
+})
+
+export const cardsReducer = slice.reducer

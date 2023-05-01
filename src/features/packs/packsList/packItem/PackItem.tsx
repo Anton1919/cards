@@ -12,13 +12,12 @@ type PacksType = {
 };
 
 const PackItem = ({ packs }: PacksType) => {
-  console.log('PackItem render');
   const date = convertDate(packs.updated);
 
   return (
     <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
       <TableCell className={s.packName} component='th' scope='row'>
-        <Link style={{ wordBreak: 'break-word' }} to={'/'}>
+        <Link style={{ wordBreak: 'break-word' }} to={packs._id}>
           {packs.name}
         </Link>
       </TableCell>

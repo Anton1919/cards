@@ -7,6 +7,7 @@ import { appReducer } from './appReducer';
 import { forgotReducer } from '../features/auth/forgot-password/fogotPasswordReducer';
 import { profileReducer } from '../features/profile/Profile/profileReducer';
 import { packsReducer } from '../features/packs/packsReducer';
+import {cardsReducer} from "../features/cards/cardsReducer";
 
 const rootReducer = combineReducers({
   app: appReducer,
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
   forgot: forgotReducer,
   profile: profileReducer,
   packs: packsReducer,
+  cards: cardsReducer
 });
 
 export const store = configureStore({

@@ -10,3 +10,4 @@ export const selectAvatar = (state: AppRootStateType) => state.profile.avatar;
 export const selectEmail = (state: AppRootStateType) => state.profile.email;
 export const selectName = (state: AppRootStateType) => state.profile.name;
 export const selectUser = (state: AppRootStateType) => state.profile;
+export const selectUserId = (state: AppRootStateType) => state.profile._id

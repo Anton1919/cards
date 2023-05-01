@@ -6,6 +6,7 @@ import deleteIcon from '../../../../../assets/icons/Delete.svg';
 import edit from '../../../../../assets/icons/edit.svg';
 import { useAppDispatch, useAppSelector } from '../../../../../app/store';
 import { deletePack } from '../../../packsReducer';
+import {selectIdForPackCrud} from "../../../selectors/selectors";
 
 type PackCrudType = {
   usersID: string;
@@ -13,8 +14,7 @@ type PackCrudType = {
 };
 
 const PackCrud = ({ usersID, packId }: PackCrudType) => {
-  console.log('PackCrud render');
-  const id = useAppSelector((state) => state.profile._id);
+  const id = useAppSelector(selectIdForPackCrud);
   const dispatch = useAppDispatch();
 
   const deletePackHandler = () => {

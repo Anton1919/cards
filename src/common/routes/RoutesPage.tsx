@@ -9,6 +9,7 @@ import CheckEmail from '../../features/auth/forgot-password/CheckEmail/CheckEmai
 import NewPassword from '../../features/auth/newPassword/NewPassword';
 import Profile from '../../features/profile/Profile/Profile';
 import Packs from '../../features/packs/Packs';
+import Cards from "../../features/cards/Cards";
 
 const RoutesPage = () => {
   return (
@@ -21,6 +22,7 @@ const RoutesPage = () => {
       <Route path={PATHS.newPassword} element={<NewPassword />} />
       <Route path={PATHS.profile} element={<Profile />} />
       <Route path={PATHS.packsList} element={<Packs />} />
+      <Route path={PATHS.pack} element={<Cards />} />
       {/*<Route path={PATHS.notFound} element={<Error404 />} />*/}
       {/*<Route path={PATHS.unknown} element={<Navigate to="/404" />} />*/}
     </Routes>

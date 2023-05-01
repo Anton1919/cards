@@ -9,7 +9,6 @@ import { ErrorSnackbar } from '../common/components/ErrorSnackBar/ErrorSnackBar'
 import { selectError, selectIsInitialized } from '../common/selectors/selectors';
 
 const App = () => {
-  console.log('App render');
   const dispatch = useAppDispatch();
   const isInitialized = useAppSelector(selectIsInitialized);
   const error = useAppSelector(selectError);

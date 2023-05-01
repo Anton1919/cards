@@ -9,6 +9,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { PATHS } from '../../../common/routes/PATHS';
 import { logout } from '../../auth/authReducer/authReducer';
 import { selectIsLoggedIn, selectUser } from '../../../common/selectors/selectors';
+import BackToPackList from "../../../common/components/BackToPackList/BackToPackList";
 
 const Profile = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn);
@@ -26,9 +27,7 @@ const Profile = () => {
 
   return (
     <Card title={'Personal Information'}>
-      <Link className={s.backToPackList} to={PATHS.packsList}>
-        Back to Packs List
-      </Link>
+      <BackToPackList />
 
       <div className={s.image}>
         <label>

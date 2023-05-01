@@ -67,5 +67,5 @@ type ResponsePackType = {
   page: number;
   pageCount: number;
   token: string;
-  tokenDeathTime: string;
+  tokenDeathTime: number;
 };
