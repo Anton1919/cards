@@ -1,9 +1,21 @@
 import {instance} from "../../../common/constants/instance";
 
 export const cardsAPI = {
-    getCards(cardID: string | undefined) {
-        return instance.get<ResponseCardsType>(`cards/card?cardsPack_id=${cardID}`)
+    getCards(data: CardParamsType) {
+        return instance.get<ResponseCardsType>('cards/card', {
+            params: {
+                cardsPack_id: data.cardsId,
+                page: data.page,
+                pageCount: data.pageCount
+            }
+        })
     }
+}
+
+export type CardParamsType = {
+    page: number
+    pageCount: number
+    cardsId: string | undefined
 }
 
 export type CardsType = {
@@ -32,4 +44,5 @@ type ResponseCardsType = {
     page: number
     pageCount: number
     token: string
-    tokenDeathTime: number }
+    tokenDeathTime: number
+}

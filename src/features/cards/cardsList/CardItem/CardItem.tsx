@@ -8,9 +8,10 @@ import {convertDate} from "../../../../utils/time";
 
 type CardItemType = {
     card: CardsType
+    isOwner: boolean
 }
 
-const CardItem = ({card}: CardItemType) => {
+const CardItem = ({card, isOwner}: CardItemType) => {
     const date = convertDate(card.updated)
 
     return (
@@ -27,7 +28,7 @@ const CardItem = ({card}: CardItemType) => {
                     <Grade/>
                 </div>
             </TableCell>
-            <TableCell> <CardsCrud/></TableCell>
+            {isOwner && <TableCell> <CardsCrud/></TableCell>}
         </TableRow>
     );
 };

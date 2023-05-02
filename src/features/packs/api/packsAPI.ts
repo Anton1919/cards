@@ -1,11 +1,12 @@
 import { instance } from '../../../common/constants/instance';
 
 export const packsAPI = {
-  getUsersPacks(page: number, pageCount: number) {
+  getUsersPacks(page: number, pageCount: number, userId?: string | undefined) {
     return instance.get<ResponsePackType>('cards/pack', {
       params: {
         page: page,
         pageCount: pageCount,
+        user_id: userId
       },
     });
   },

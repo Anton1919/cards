@@ -1,16 +1,20 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {AddPackType, packsAPI, PackType} from './api/packsAPI';
 import {setAppStatus} from '../../app/appReducer';
 import {AxiosError} from 'axios';
 import {handleServerAppError} from '../../utils/error-utils';
+import {AppRootStateType} from "../../app/store";
 
 type InitialStateType = {
     cardPacks: PackType[];
     cardPacksTotalCount: number;
     maxCardsCount: number;
     minCardsCount: number;
-    page: number;
-    pageCount: number;
+    searchParams: {
+        page: number;
+        pageCount: number;
+        user_id: string | undefined
+    }
 };
 
 const initialState: InitialStateType = {
@@ -18,16 +22,25 @@ const initialState: InitialStateType = {
     cardPacksTotalCount: 0,
     maxCardsCount: 0,
     minCardsCount: 0,
-    page: 1,
-    pageCount: 4,
+    searchParams: {
+        page: 1,
+        pageCount: 4,
+        user_id: ""
+    }
 };
 
 export const getPacks = createAsyncThunk(
     'packs/usersPacks',
-    async (param: { page: number; pageCount: number }, {dispatch, rejectWithValue}) => {
+    async (param: {userId: string | undefined}, {
+        dispatch,
+        getState,
+        rejectWithValue
+    }) => {
+        const state = getState() as AppRootStateType
+        const {page, pageCount, user_id} = state.packs.searchParams
         dispatch(setAppStatus({status: 'loading'}));
         try {
-            const res = await packsAPI.getUsersPacks(param.page, param.pageCount);
+            const res = await packsAPI.getUsersPacks(page, pageCount, user_id);
             dispatch(setAppStatus({status: 'succeeded'}));
             return res.data;
         } catch (e) {
@@ -76,7 +89,17 @@ export const deletePack = createAsyncThunk(
 const slice = createSlice({
     name: 'packs',
     initialState,
-    reducers: {},
+    reducers: {
+        setUserId: (state, action: PayloadAction<{ userId: string }>) => {
+            state.searchParams.user_id = action.payload.userId
+        },
+        setPageAC: (state, action: PayloadAction<{ page: number }>) => {
+            state.searchParams.page = action.payload.page
+        },
+        setPageCountAC: (state, action: PayloadAction<{ pageCount: number }>) => {
+            state.searchParams.pageCount = action.payload.pageCount
+        }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getPacks.fulfilled, (state, action) => {
@@ -84,8 +107,8 @@ const slice = createSlice({
                 state.cardPacksTotalCount = action.payload.cardPacksTotalCount;
                 state.maxCardsCount = action.payload.maxCardsCount;
                 state.minCardsCount = action.payload.minCardsCount;
-                state.page = action.payload.page;
-                state.pageCount = action.payload.pageCount;
+                state.searchParams.page = action.payload.page;
+                state.searchParams.pageCount = action.payload.pageCount;
             })
             .addCase(addPackTC.fulfilled, (state, action) => {
                 state.cardPacks.unshift({...action.payload.newCardsPack});
@@ -98,3 +121,4 @@ const slice = createSlice({
 });
 
 export const packsReducer = slice.reducer;
+export const {setUserId, setPageAC, setPageCountAC} = slice.actions

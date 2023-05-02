@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {cardsAPI, CardsType} from "./api/cardsAPI";
+import {CardParamsType, cardsAPI, CardsType} from "./api/cardsAPI";
 import {AxiosError} from "axios";
 import {handleServerAppError} from "../../utils/error-utils";
 import {setAppStatus} from "../../app/appReducer";
@@ -22,11 +22,14 @@ const initialState: InitialStateType = {
     packName: ''
 }
 
-export const getCardsTC = createAsyncThunk('cards/usersCards', async (cardsId: string | undefined, {dispatch, rejectWithValue}) => {
+export const getCardsTC = createAsyncThunk('cards/usersCards', async (params: CardParamsType, {
+    dispatch,
+    rejectWithValue
+}) => {
     dispatch(setAppStatus({status: 'loading'}));
     try {
-        const res = await cardsAPI.getCards(cardsId)
-        dispatch(setAppStatus({ status: 'succeeded' }));
+        const res = await cardsAPI.getCards({page: params.page, pageCount: params.pageCount, cardsId: params.cardsId})
+        dispatch(setAppStatus({status: 'succeeded'}));
         return res.data
     } catch (e) {
         const error = e as AxiosError;

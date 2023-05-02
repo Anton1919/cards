@@ -9,26 +9,28 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import CardItem from "./CardItem/CardItem";
 import PaginationC from "../../../common/components/Pagination/PaginationC";
-import {useAppDispatch, useAppSelector} from "../../../app/store";
-import {selectCardPage, selectCardPageCount, selectCards, selectTotalCount} from "../selectors/selectors";
+import {useAppDispatch} from "../../../app/store";
 import {getCardsTC} from "../cardsReducer";
-import {useParams} from "react-router-dom";
+import {CardsType} from "../api/cardsAPI";
 
-const CardsList = () => {
+type CardsListType = {
+    cards: CardsType[]
+    totalCount: number
+    page: number
+    pageCount: number
+    packID: string | undefined
+    isOwner: boolean
+}
+
+const CardsList = ({isOwner, cards, page, pageCount, totalCount, packID}: CardsListType) => {
     const dispatch = useAppDispatch()
-    const cards = useAppSelector(selectCards)
-    const totalCount = useAppSelector(selectTotalCount)
-    const page = useAppSelector(selectCardPage)
-    const pageCount = useAppSelector(selectCardPageCount)
-    const {packID} = useParams()
 
     useEffect(() => {
-        dispatch(getCardsTC(packID))
+        dispatch(getCardsTC({page: page, pageCount: pageCount, cardsId: packID}))
     }, [])
 
-    // Начинай с этого места
     const onChangePagination = (pageNumber: number, pageCount: number) => {
-        // dispatch(getCardsTC({page: pageNumber, pageCount: pageCount}));
+        dispatch(getCardsTC({page: pageNumber, pageCount: pageCount, cardsId: packID}));
     };
 
     return (
@@ -41,24 +43,22 @@ const CardsList = () => {
                             <TableCell>Answer</TableCell>
                             <TableCell align={'center'}>Last Updated</TableCell>
                             <TableCell align={'center'}>Grade</TableCell>
-                            <TableCell align={'right'}>Actions</TableCell>
+                            {isOwner && <TableCell align={'right'}>Actions</TableCell>}
                         </TableRow>
                     </TableHead>
 
                     <TableBody>
                         {cards.map((el) => {
                             return (
-                                <CardItem key={el._id} card={el}/>
+                                <CardItem key={el._id} card={el} isOwner={isOwner}/>
                             )
                         })}
-
                     </TableBody>
-
                 </Table>
             </TableContainer>
 
-            <PaginationC totalCount={totalCount} page={page} pageCount={pageCount} onChangePagination={() => {
-            }}/>
+            <PaginationC totalCount={totalCount} page={page} pageCount={pageCount}
+                         onChangePagination={onChangePagination}/>
         </>
     );
 };

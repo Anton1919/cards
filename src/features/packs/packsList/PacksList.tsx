@@ -1,32 +1,31 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import TableContainer from '@mui/material/TableContainer'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell'
-
 import s from './PackList.module.scss';
 import PackItem from './packItem/PackItem';
 import Paper from '@mui/material/Paper';
-import {useAppDispatch, useAppSelector} from '../../../app/store';
-import {getPacks} from '../packsReducer';
-import {selectPacks, selectPage, selectPageCount, selectTotalCount} from '../selectors/selectors';
+import {useAppDispatch} from '../../../app/store';
+import {setPageAC, setPageCountAC} from '../packsReducer';
 import PaginationC from '../../../common/components/Pagination/PaginationC';
+import {PackType} from "../api/packsAPI";
 
-const PackList = () => {
+type PackListType = {
+    packs: PackType[]
+    totalCount: number
+    pageFilter: number
+    pageCountFilter: number
+}
+
+const PackList = ({packs, pageCountFilter, pageFilter, totalCount}: PackListType) => {
     const dispatch = useAppDispatch();
-    const packs = useAppSelector(selectPacks);
-    const totalCount = useAppSelector(selectTotalCount);
-    const page = useAppSelector(selectPage);
-    const pageCount = useAppSelector(selectPageCount);
-
-    useEffect(() => {
-        dispatch(getPacks({page: 1, pageCount: 4}));
-    }, []);
 
     const onChangePagination = (pageNumber: number, pageCount: number) => {
-        dispatch(getPacks({page: pageNumber, pageCount: pageCount}));
+        dispatch(setPageAC({page: pageNumber}))
+        dispatch(setPageCountAC({pageCount}))
     };
 
     return (
@@ -54,8 +53,11 @@ const PackList = () => {
                 </Table>
             </TableContainer>
 
-            <PaginationC page={page} pageCount={pageCount} totalCount={totalCount}
-                         onChangePagination={onChangePagination}/>
+            <PaginationC page={pageFilter}
+                         pageCount={pageCountFilter}
+                         totalCount={totalCount}
+                         onChangePagination={onChangePagination}
+            />
         </>
     );
 };
