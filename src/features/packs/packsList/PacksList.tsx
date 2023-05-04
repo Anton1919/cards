@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import TableContainer from '@mui/material/TableContainer'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -8,25 +8,41 @@ import TableCell from '@mui/material/TableCell'
 import s from './PackList.module.scss';
 import PackItem from './packItem/PackItem';
 import Paper from '@mui/material/Paper';
-import {useAppDispatch} from '../../../app/store';
-import {setPageAC, setPageCountAC} from '../packsReducer';
+import {useAppDispatch, useAppSelector} from '../../../app/store';
+import {setPageAC, setPageCountAC, setSortPacks} from '../packsReducer';
 import PaginationC from '../../../common/components/Pagination/PaginationC';
 import {PackType} from "../api/packsAPI";
+import arrow from '../../../assets/icons/arrpwDown.svg'
+import {selectorSortPack} from "../selectors/selectors";
 
 type PackListType = {
     packs: PackType[]
     totalCount: number
-    pageFilter: number
-    pageCountFilter: number
+    page: number
+    pageCount: number
 }
 
-const PackList = ({packs, pageCountFilter, pageFilter, totalCount}: PackListType) => {
+const PackList = ({packs, pageCount, page, totalCount}: PackListType) => {
+    const [down, setDown] = useState(true)
+
     const dispatch = useAppDispatch();
+    const sortPack = useAppSelector(selectorSortPack)
 
     const onChangePagination = (pageNumber: number, pageCount: number) => {
         dispatch(setPageAC({page: pageNumber}))
         dispatch(setPageCountAC({pageCount}))
     };
+
+    const onClickHandler = () => {
+        if (sortPack === '0updated') {
+            dispatch(setSortPacks({sortPacks: '1updated'}))
+        } else {
+            dispatch(setSortPacks({sortPacks: '0updated'}))
+        }
+        setDown(!down)
+    }
+
+    const sortClassName = down ? s.sortDown : s.sortDown + ' ' + s.sortUp
 
     return (
         <>
@@ -37,8 +53,10 @@ const PackList = ({packs, pageCountFilter, pageFilter, totalCount}: PackListType
                             <TableCell>Name</TableCell>
                             <TableCell>Cover</TableCell>
                             <TableCell align='right'>Cards</TableCell>
-                            <TableCell sx={{cursor: 'pointer'}} align='right'>
+                            <TableCell onClick={onClickHandler} sx={{cursor: 'pointer', position: 'relative'}}
+                                       align='right'>
                                 Last Updated
+                                <img className={sortClassName} src={arrow} alt="arrow"/>
                             </TableCell>
                             <TableCell align='right'>Created by</TableCell>
                             <TableCell align='right'>Actions</TableCell>
@@ -53,8 +71,14 @@ const PackList = ({packs, pageCountFilter, pageFilter, totalCount}: PackListType
                 </Table>
             </TableContainer>
 
-            <PaginationC page={pageFilter}
-                         pageCount={pageCountFilter}
+            {!packs.length &&
+                <div className={s.warningMessage}>
+                   <p>Колоды с введенным названием не найдены. Измените параметры запроса</p>
+                </div>
+            }
+
+            <PaginationC page={page}
+                         pageCount={pageCount}
                          totalCount={totalCount}
                          onChangePagination={onChangePagination}
             />

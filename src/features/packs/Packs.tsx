@@ -3,7 +3,17 @@ import PackList from './packsList/PacksList';
 import s from './Pack.module.scss';
 import HeaderPack from './header/HeaderPack';
 import {useAppDispatch, useAppSelector} from "../../app/store";
-import {selectPacks, selectPage, selectPageCount, selectTotalCount, selectUserId} from "./selectors/selectors";
+import {
+    selectMax,
+    selectMin,
+    selectorPackNameSearch,
+    selectorSortPack,
+    selectPacks,
+    selectPage,
+    selectPageCount,
+    selectTotalCount,
+    selectUserId
+} from "./selectors/selectors";
 import {getPacks} from "./packsReducer";
 
 const Packs = () => {
@@ -11,12 +21,18 @@ const Packs = () => {
     const userId = useAppSelector(selectUserId)
     const packs = useAppSelector(selectPacks);
     const totalCount = useAppSelector(selectTotalCount);
-    const pageFilter = useAppSelector(selectPage);
-    const pageCountFilter = useAppSelector(selectPageCount);
+    const page = useAppSelector(selectPage);
+    const pageCount = useAppSelector(selectPageCount);
+    const min = useAppSelector(selectMin)
+    const max = useAppSelector(selectMax)
+    const sortPack = useAppSelector(selectorSortPack)
+    const packName = useAppSelector(selectorPackNameSearch)
+
+    // сделать search переиспользуемым в компоненте cards
 
     useEffect(() => {
         dispatch(getPacks({userId}))
-    }, [pageFilter, pageCountFilter, userId])
+    }, [page, pageCount, userId, min, max, sortPack, packName])
 
     return (
         <div className={s.container}>
@@ -24,8 +40,8 @@ const Packs = () => {
             <PackList
                 packs={packs}
                 totalCount={totalCount}
-                pageFilter={pageFilter}
-                pageCountFilter={pageCountFilter}
+                page={page}
+                pageCount={pageCount}
             />
         </div>
     );

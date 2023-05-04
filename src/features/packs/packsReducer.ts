@@ -8,12 +8,17 @@ import {AppRootStateType} from "../../app/store";
 type InitialStateType = {
     cardPacks: PackType[];
     cardPacksTotalCount: number;
-    maxCardsCount: number;
-    minCardsCount: number;
+    maxCardsCount: number
+    minCardsCount: number
     searchParams: {
+        sortPacks: string,
+        packName: string
+        min: number,
+        max: number,
         page: number;
         pageCount: number;
         user_id: string | undefined
+        isMy?: boolean
     }
 };
 
@@ -23,24 +28,29 @@ const initialState: InitialStateType = {
     maxCardsCount: 0,
     minCardsCount: 0,
     searchParams: {
+        sortPacks: '0updated',
+        packName: '',
+        min: 0,
+        max: 0,
         page: 1,
         pageCount: 4,
-        user_id: ""
+        user_id: "",
+        isMy: false
     }
 };
 
 export const getPacks = createAsyncThunk(
     'packs/usersPacks',
-    async (param: {userId: string | undefined}, {
+    async (param: { userId: string | undefined }, {
         dispatch,
         getState,
         rejectWithValue
     }) => {
         const state = getState() as AppRootStateType
-        const {page, pageCount, user_id} = state.packs.searchParams
+        const {page, pageCount, user_id, min, max, sortPacks, packName} = state.packs.searchParams
         dispatch(setAppStatus({status: 'loading'}));
         try {
-            const res = await packsAPI.getUsersPacks(page, pageCount, user_id);
+            const res = await packsAPI.getUsersPacks(page, pageCount, min, max, sortPacks, packName, user_id);
             dispatch(setAppStatus({status: 'succeeded'}));
             return res.data;
         } catch (e) {
@@ -98,6 +108,30 @@ const slice = createSlice({
         },
         setPageCountAC: (state, action: PayloadAction<{ pageCount: number }>) => {
             state.searchParams.pageCount = action.payload.pageCount
+        },
+        setMin: (state, action: PayloadAction<{ min: number }>) => {
+            state.searchParams.min = action.payload.min
+        },
+        setMax: (state, action: PayloadAction<{ max: number }>) => {
+            state.searchParams.max = action.payload.max
+        },
+        setSortPacks: (state, action: PayloadAction<{ sortPacks: string }>) => {
+            state.searchParams.sortPacks = action.payload.sortPacks
+        },
+        setPackName: (state, action: PayloadAction<{ packName: string }>) => {
+            state.searchParams.packName = action.payload.packName
+        },
+        setIsMy: (state, action: PayloadAction<{ value: boolean }>) => {
+            state.searchParams.isMy = action.payload.value
+        },
+        resetAllSettings: (state, action: PayloadAction<{ max: number }>) => {
+            state.searchParams.max = action.payload.max
+            state.searchParams.packName = ""
+            state.searchParams.user_id = ""
+            state.searchParams.min = 0
+            state.searchParams.page = 1
+            state.searchParams.pageCount = 4
+            state.searchParams.isMy = false
         }
     },
     extraReducers: (builder) => {
@@ -121,4 +155,14 @@ const slice = createSlice({
 });
 
 export const packsReducer = slice.reducer;
-export const {setUserId, setPageAC, setPageCountAC} = slice.actions
+export const {
+    setUserId,
+    setPageAC,
+    setPageCountAC,
+    setMin,
+    setMax,
+    setSortPacks,
+    setPackName,
+    resetAllSettings,
+    setIsMy,
+} = slice.actions

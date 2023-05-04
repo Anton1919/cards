@@ -23,7 +23,7 @@ const CardsHeader = ({isOwner, packName}: CardsHeaderType) => {
             </div>
         </div>
         <div className={s.search}>
-            <Search/>
+            <Search />
         </div>
     </div>;
 };

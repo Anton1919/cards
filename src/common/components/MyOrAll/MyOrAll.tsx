@@ -1,25 +1,25 @@
-import React, {useState} from 'react';
+import React from 'react';
 import s from './MyOrAll.module.scss';
 import {useAppDispatch, useAppSelector} from "../../../app/store";
-import {setUserId} from "../../../features/packs/packsReducer";
-import {selectProfileId} from "../../../features/packs/selectors/selectors";
+import {setIsMy, setUserId} from "../../../features/packs/packsReducer";
+import {selectIsMy, selectProfileId} from "../../../features/packs/selectors/selectors";
 
 
 const MyOrAll = () => {
-    const [isMy, setIsMy] = useState(false);
     const userId = useAppSelector(selectProfileId)
+    const isMy = useAppSelector(selectIsMy)
     const dispatch = useAppDispatch()
 
     const myPacksFilter = () => {
         if (userId) {
             dispatch(setUserId({userId}))
         }
-        setIsMy(true)
+        dispatch(setIsMy({value: true}))
     };
 
     const allPacksFilter = () => {
         dispatch(setUserId({userId: ''}))
-        setIsMy(false)
+        dispatch(setIsMy({value: false}))
     };
 
     return (

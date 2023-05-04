@@ -12,6 +12,7 @@ type PaginationType = {
 
 const PaginationC = ({totalCount, onChangePagination, pageCount, page}: PaginationType) => {
     const lastPage = Math.ceil(totalCount / pageCount);
+
     const options = [
         {id: 4, value: 4},
         {id: 8, value: 8},
@@ -32,7 +33,7 @@ const PaginationC = ({totalCount, onChangePagination, pageCount, page}: Paginati
                 <Pagination page={page} count={lastPage} onChange={onChangeCallback}/>
             </div>
             <div className={s.selectWrapper}>
-                Show <SelectC options={options} onChangeSelect={onChangeSelect}/>
+                Show <SelectC pageCount={pageCount} options={options} onChangeSelect={onChangeSelect}/>
                 Cards per Page
             </div>
         </div>

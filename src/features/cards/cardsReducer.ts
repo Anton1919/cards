@@ -11,6 +11,7 @@ type InitialStateType = {
     pageCount: number
     packUserId: string
     packName: string
+    question: string
 }
 
 const initialState: InitialStateType = {
@@ -19,7 +20,8 @@ const initialState: InitialStateType = {
     page: 1,
     pageCount: 4,
     packUserId: '',
-    packName: ''
+    packName: '',
+    question: ''
 }
 
 export const getCardsTC = createAsyncThunk('cards/usersCards', async (params: CardParamsType, {

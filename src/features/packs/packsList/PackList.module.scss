@@ -26,16 +26,33 @@
   margin-bottom: 20px;
 }
 
-.sortArrow {
+.sortDown {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 8px;
+  margin-left: 6px;
   cursor: pointer;
-
-  transform: rotate(180deg);
-
-  margin-left: 5px;
-
-  transition: transform .3s linear;
+  transition: all .3s;
 }
 
-.sortArrowDown {
-  transform: rotate(0deg);
+.sortUp {
+  top: 42%;
+  transform: rotate(180deg);
+}
+
+.warningMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & p {
+    padding: 7px;
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+    border-radius: 3px;
+  }
 }

@@ -1,72 +1,76 @@
-import { instance } from '../../../common/constants/instance';
+import {instance} from '../../../common/constants/instance';
 
 export const packsAPI = {
-  getUsersPacks(page: number, pageCount: number, userId?: string | undefined) {
-    return instance.get<ResponsePackType>('cards/pack', {
-      params: {
-        page: page,
-        pageCount: pageCount,
-        user_id: userId
-      },
-    });
-  },
+    getUsersPacks(page: number, pageCount: number, min: number, max: number, sortPacks: string, packName: string, userId?: string | undefined) {
+        return instance.get<ResponsePackType>('cards/pack', {
+            params: {
+                page,
+                pageCount,
+                min,
+                max,
+                sortPacks,
+                packName,
+                user_id: userId
+            },
+        });
+    },
 
-  addPack(data: AddPackType) {
-    return instance.post<ResponseAddPackType>('cards/pack', data).then((res) => res.data);
-  },
+    addPack(data: AddPackType) {
+        return instance.post<ResponseAddPackType>('cards/pack', data).then((res) => res.data);
+    },
 
-  deletePack(id: string) {
-    return instance.delete<ResponseDeletePackType>(`cards/pack?id=${id}`);
-  },
+    deletePack(id: string) {
+        return instance.delete<ResponseDeletePackType>(`cards/pack?id=${id}`);
+    },
 };
 
 type ResponseDeletePackType = {
-  deletedCardsPack: PackType;
-  token: string;
-  tokenDeathTime: string;
+    deletedCardsPack: PackType;
+    token: string;
+    tokenDeathTime: string;
 };
 
 type ResponseAddPackType = {
-  newCardsPack: PackType;
-  token: string;
-  tokenDeathTime: string;
+    newCardsPack: PackType;
+    token: string;
+    tokenDeathTime: string;
 };
 
 type CardPropertiesType = {
-  name?: string;
-  deckCover?: string;
-  private?: boolean;
+    name?: string;
+    deckCover?: string;
+    private?: boolean;
 };
 
 export type AddPackType = {
-  cardsPack: CardPropertiesType;
+    cardsPack: CardPropertiesType;
 };
 
 export type PackType = {
-  cardsCount: number;
-  created: string;
-  grade: number;
-  more_id: string;
-  name: string;
-  path: string;
-  private: boolean;
-  deckCover: string;
-  shots: number;
-  type: string;
-  updated: string;
-  user_id: string;
-  user_name: string;
-  _v: number;
-  _id: string;
+    cardsCount: number;
+    created: string;
+    grade: number;
+    more_id: string;
+    name: string;
+    path: string;
+    private: boolean;
+    deckCover: string;
+    shots: number;
+    type: string;
+    updated: string;
+    user_id: string;
+    user_name: string;
+    _v: number;
+    _id: string;
 };
 
 type ResponsePackType = {
-  cardPacks: PackType[];
-  cardPacksTotalCount: number;
-  maxCardsCount: number;
-  minCardsCount: number;
-  page: number;
-  pageCount: number;
-  token: string;
-  tokenDeathTime: number;
+    cardPacks: PackType[];
+    cardPacksTotalCount: number;
+    maxCardsCount: number;
+    minCardsCount: number;
+    page: number;
+    pageCount: number;
+    token: string;
+    tokenDeathTime: number;
 };

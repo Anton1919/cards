@@ -5,7 +5,8 @@ import CardsHeader from "./header/CardsHeader";
 import CardsList from "./cardsList/CardsList";
 import {useAppSelector} from "../../app/store";
 import {
-    selectCardPage, selectCardPageCount,
+    selectCardPage,
+    selectCardPageCount,
     selectCards,
     selectPackName,
     selectProfileID,
