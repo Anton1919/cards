@@ -1,11 +1,11 @@
 import React from 'react';
 
 type CheckboxPropsType = {
-  checked: boolean;
+    checked: boolean;
 };
 
-const Checkbox = ({ checked }: CheckboxPropsType) => {
-  return <input type={'checkbox'} checked={checked} />;
+const Checkbox = ({checked}: CheckboxPropsType) => {
+    return <input type={'checkbox'} checked={checked}/>;
 };
 
 export default Checkbox;

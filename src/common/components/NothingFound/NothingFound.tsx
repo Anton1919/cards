@@ -11,7 +11,6 @@ const NothingFound = ({message}: NothingFoundType) => {
             <p>
                 {message}
             </p>
-
         </div>
     );
 };

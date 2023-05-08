@@ -3,8 +3,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import InputBase from '@mui/material/InputBase';
 import Paper from '@mui/material/Paper';
 import s from './Search.module.scss';
-import {useDebounce} from "../../hooks/useDebounce";
-import {useAppDispatch} from "../../../app/store";
+import {useDebounce} from "common/hooks/useDebounce";
+import {useAppDispatch} from "app/store";
 import {ActionCreatorWithPayload} from "@reduxjs/toolkit";
 
 type SearchType = {

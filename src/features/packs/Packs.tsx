@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import PackList from './packsList/PacksList';
 import s from './Pack.module.scss';
 import HeaderPack from './header/HeaderPack';
-import {useAppDispatch, useAppSelector} from "../../app/store";
+import {useAppDispatch, useAppSelector} from "app/store";
 import {
     selectMax,
     selectMin,
@@ -15,6 +15,9 @@ import {
     selectUserId
 } from "./selectors/selectors";
 import {getPacks} from "./packsReducer";
+import {selectIsLoggedIn} from "common/selectors/selectors";
+import {Navigate} from "react-router-dom";
+import {PATHS} from "common/routes/PATHS";
 
 const Packs = () => {
     const dispatch = useAppDispatch()
@@ -27,10 +30,15 @@ const Packs = () => {
     const max = useAppSelector(selectMax)
     const sortPack = useAppSelector(selectorSortPack)
     const packName = useAppSelector(selectorPackNameSearch)
+    const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
     useEffect(() => {
         dispatch(getPacks({userId}))
     }, [page, pageCount, userId, min, max, sortPack, packName])
+
+    if (!isLoggedIn) {
+        return <Navigate to={PATHS.login}/>
+    }
 
     return (
         <div className={s.container}>

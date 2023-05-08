@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import s from './BackToPackList.module.scss';
-import {PATHS} from "../../routes/PATHS";
+import {PATHS} from "common/routes/PATHS";
 
 const BackToPackList = () => {
     return (

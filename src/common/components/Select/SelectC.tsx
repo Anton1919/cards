@@ -1,9 +1,7 @@
 import Select, {SelectChangeEvent} from '@mui/material/Select';
 import React from 'react';
 import MenuItem from '@mui/material/MenuItem';
-import {useAppSelector} from "../../../app/store";
-import {selectPageCount} from "../../../features/packs/selectors/selectors";
-import {setPageCountAC} from "../../../features/packs/packsReducer";
+import {setPageCountAC} from "features/packs/packsReducer";
 
 type OptionsType = {
     id: number;

@@ -1,14 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {Slider} from '@mui/material';
 import s from './RangeSlider.module.scss';
-import {useAppDispatch, useAppSelector} from "../../../app/store";
-import {setMax, setMin} from "../../../features/packs/packsReducer";
-import {
-    selectMax,
-    selectMaxCardsCount,
-    selectMin,
-    selectMinCardsCount
-} from "../../../features/packs/selectors/selectors";
+import {useAppDispatch, useAppSelector} from "app/store";
+import {setMax, setMin} from "features/packs/packsReducer";
+import {selectMax, selectMaxCardsCount, selectMin, selectMinCardsCount} from "features/packs/selectors/selectors";
 
 const RangeSlider = () => {
     const dispatch = useAppDispatch()

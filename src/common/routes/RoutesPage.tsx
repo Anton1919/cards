@@ -1,15 +1,14 @@
 import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
-
 import { PATHS } from './PATHS';
-import SignIn from '../../features/auth/login/SignIn';
-import SignUp from '../../features/auth/registration/SignUp';
-import ForgotPassword from '../../features/auth/forgot-password/ForgotPassword';
-import CheckEmail from '../../features/auth/forgot-password/CheckEmail/CheckEmail';
-import NewPassword from '../../features/auth/newPassword/NewPassword';
-import Profile from '../../features/profile/Profile/Profile';
-import Packs from '../../features/packs/Packs';
-import Cards from "../../features/cards/Cards";
+import SignIn from 'features/auth/login/SignIn';
+import SignUp from 'features/auth/registration/SignUp';
+import ForgotPassword from 'features/auth/forgot-password/ForgotPassword';
+import CheckEmail from 'features/auth/forgot-password/CheckEmail/CheckEmail';
+import NewPassword from 'features/auth/newPassword/NewPassword';
+import Profile from 'features/profile/Profile/Profile';
+import Packs from 'features/packs/Packs';
+import Cards from "features/cards/Cards";
 
 const RoutesPage = () => {
   return (

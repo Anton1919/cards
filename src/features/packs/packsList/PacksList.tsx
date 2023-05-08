@@ -8,13 +8,15 @@ import TableCell from '@mui/material/TableCell'
 import s from './PackList.module.scss';
 import PackItem from './packItem/PackItem';
 import Paper from '@mui/material/Paper';
-import {useAppDispatch, useAppSelector} from '../../../app/store';
+import {useAppDispatch, useAppSelector} from 'app/store';
 import {setPageAC, setPageCountAC, setSortPacks} from '../packsReducer';
-import PaginationC from '../../../common/components/Pagination/PaginationC';
-import {PackType} from "../api/packsAPI";
-import arrow from '../../../assets/icons/arrpwDown.svg'
-import {selectorSortPack} from "../selectors/selectors";
-import NothingFound from "../../../common/components/NothingFound/NothingFound";
+import PaginationC from 'common/components/Pagination/PaginationC';
+import NothingFound from "common/components/NothingFound/NothingFound";
+import {PackType} from "features/packs/api/packsAPI";
+import {selectorSortPack} from "features/packs/selectors/selectors";
+import arrow from 'assets/icons/arrpwDown.svg'
+import {selectStatus} from "common/selectors/selectors";
+import CircularProgress from "@mui/material/CircularProgress";
 
 type PackListType = {
     packs: PackType[]
@@ -25,9 +27,9 @@ type PackListType = {
 
 const PackList = ({packs, pageCount, page, totalCount}: PackListType) => {
     const [down, setDown] = useState(true)
-
     const dispatch = useAppDispatch();
     const sortPack = useAppSelector(selectorSortPack)
+    const status = useAppSelector(selectStatus)
 
     const onChangePagination = (pageNumber: number, pageCount: number) => {
         dispatch(setPageAC({page: pageNumber}))
@@ -47,40 +49,46 @@ const PackList = ({packs, pageCount, page, totalCount}: PackListType) => {
 
     return (
         <>
-            <TableContainer className={s.tableContainer} component={Paper}>
-                <Table sx={{minWidth: 650}}>
-                    <TableHead>
-                        <TableRow className={s.thead}>
-                            <TableCell>Name</TableCell>
-                            <TableCell>Cover</TableCell>
-                            <TableCell align='right'>Cards</TableCell>
-                            <TableCell onClick={onClickHandler} sx={{cursor: 'pointer', position: 'relative'}}
-                                       align='right'>
-                                Last Updated
-                                <img className={sortClassName} src={arrow} alt="arrow"/>
-                            </TableCell>
-                            <TableCell align='right'>Created by</TableCell>
-                            <TableCell align='right'>Actions</TableCell>
-                        </TableRow>
-                    </TableHead>
+            {status === 'loading'
+                ? <CircularProgress sx={{marginLeft: '45%', marginTop: '50px'}} size={60}/>
+                :
+                <>
+                    <TableContainer className={s.tableContainer} component={Paper}>
+                        <Table sx={{minWidth: 650}}>
+                            <TableHead>
+                                <TableRow className={s.thead}>
+                                    <TableCell>Name</TableCell>
+                                    <TableCell>Cover</TableCell>
+                                    <TableCell align='right'>Cards</TableCell>
+                                    <TableCell onClick={onClickHandler} sx={{cursor: 'pointer', position: 'relative'}}
+                                               align='right'>
+                                        Last Updated
+                                        <img className={sortClassName} src={arrow} alt="arrow"/>
+                                    </TableCell>
+                                    <TableCell align='right'>Created by</TableCell>
+                                    <TableCell align='right'>Actions</TableCell>
+                                </TableRow>
+                            </TableHead>
 
-                    <TableBody>
-                        {packs.map((el) => {
-                            return <PackItem key={el._id} packs={el}/>;
-                        })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                            <TableBody>
+                                {packs.map((el) => {
+                                    return <PackItem key={el._id} packs={el}/>;
+                                })}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
 
-            {!packs.length &&
-                <NothingFound message={'Колоды с введенным названием не найдены. Измените параметры запроса'}/>
+                    {!packs.length &&
+                        <NothingFound message={'Колоды с введенным названием не найдены. Измените параметры запроса'}/>
+                    }
+
+                    <PaginationC page={page}
+                                 pageCount={pageCount}
+                                 totalCount={totalCount}
+                                 onChangePagination={onChangePagination}
+                    />
+                </>
             }
-
-            <PaginationC page={page}
-                         pageCount={pageCount}
-                         totalCount={totalCount}
-                         onChangePagination={onChangePagination}
-            />
         </>
     );
 };

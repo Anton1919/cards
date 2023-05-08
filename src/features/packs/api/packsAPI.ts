@@ -1,4 +1,4 @@
-import {instance} from '../../../common/constants/instance';
+import {instance} from 'common/constants/instance';
 
 export const packsAPI = {
     getUsersPacks(page: number, pageCount: number, min: number, max: number, sortPacks: string, packName: string, userId?: string | undefined) {
@@ -37,13 +37,13 @@ type ResponseAddPackType = {
 };
 
 type CardPropertiesType = {
-    name?: string;
-    deckCover?: string;
-    private?: boolean;
+    name: string;
+    deckCover: string;
+    private: boolean;
 };
 
 export type AddPackType = {
-    cardsPack: CardPropertiesType;
+    cardsPack: Partial<CardPropertiesType>;
 };
 
 export type PackType = {

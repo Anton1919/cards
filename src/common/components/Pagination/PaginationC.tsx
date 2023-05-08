@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './Pagination.module.scss';
 import Pagination from '@mui/material/Pagination';
-import SelectC from '../Select/SelectC';
+import SelectC from "common/components/Select/SelectC";
 
 type PaginationType = {
     totalCount: number;

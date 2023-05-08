@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { authAPI, LoginType } from '../api/authAPI';
-import { setAppStatus } from '../../../app/appReducer';
+import { setAppStatus } from 'app/appReducer';
 import { AxiosError } from 'axios';
-import { handleServerAppError } from '../../../utils/error-utils';
-import { setProfileData } from '../../profile/Profile/profileReducer';
+import { handleServerAppError } from 'utils/error-utils';
+import {setProfileData} from "features/profile/Profile/profileReducer";
+import {authAPI, LoginType} from "features/auth/api/authAPI";
 
 export type InitialStateType = typeof initialState;
 

@@ -1,20 +1,23 @@
 import React, {useEffect} from 'react';
 import s from './Cards.module.scss'
-import BackToPackList from "../../common/components/BackToPackList/BackToPackList";
+import BackToPackList from "common/components/BackToPackList/BackToPackList";
 import CardsHeader from "./header/CardsHeader";
 import CardsList from "./cardsList/CardsList";
-import {useAppDispatch, useAppSelector} from "../../app/store";
+import {useAppDispatch, useAppSelector} from "app/store";
 import {
     selectCardPage,
-    selectCardPageCount, selectCardQuestion,
+    selectCardPageCount,
+    selectCardQuestion,
     selectCards,
     selectPackName,
     selectProfileID,
     selectTotalCount,
     selectUserID
 } from "./selectors/selectors";
-import {useParams} from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 import {getCardsTC} from "./cardsReducer";
+import {PATHS} from "common/routes/PATHS";
+import {selectIsLoggedIn} from "common/selectors/selectors";
 
 const Cards = () => {
     const dispatch = useAppDispatch()
@@ -26,12 +29,17 @@ const Cards = () => {
     const page = useAppSelector(selectCardPage)
     const pageCount = useAppSelector(selectCardPageCount)
     const cardQuestion = useAppSelector(selectCardQuestion)
+    const isLoggedIn = useAppSelector(selectIsLoggedIn)
     const {packID} = useParams()
     const isOwner = profileID === userID
 
     useEffect(() => {
         dispatch(getCardsTC({cardsId: packID}))
     }, [page, pageCount, cardQuestion])
+
+    if (!isLoggedIn) {
+        return <Navigate to={PATHS.login}/>
+    }
 
     return <div className={s.container}>
         <div className={s.backTo}><BackToPackList/></div>

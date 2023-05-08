@@ -1,11 +1,11 @@
 import React from 'react';
-import Button from "../../../common/components/Button/Button";
-import Search from "../../../common/components/Search/Search";
+import Button from "common/components/Button/Button";
+import Search from "common/components/Search/Search";
 import s from './CardsHeader.module.scss'
-import settingsCard from '../../../assets/icons/settingsCard.svg'
-import {useAppDispatch, useAppSelector} from "../../../app/store";
-import {selectCardQuestion} from "../selectors/selectors";
-import {setCardQuestion} from "../cardsReducer";
+import {useAppSelector} from "app/store";
+import {selectCardQuestion} from "features/cards/selectors/selectors";
+import {setCardQuestion} from "features/cards/cardsReducer";
+import settingsCard from 'assets/icons/settingsCard.svg'
 
 type CardsHeaderType = {
     isOwner: boolean
@@ -26,7 +26,7 @@ const CardsHeader = ({isOwner, packName}: CardsHeaderType) => {
             </div>
         </div>
         <div className={s.search}>
-            <Search searchParam={cardQuestion} actionCreator={setCardQuestion} />
+            <Search searchParam={cardQuestion} actionCreator={setCardQuestion}/>
         </div>
     </div>;
 };

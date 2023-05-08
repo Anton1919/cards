@@ -1,9 +1,8 @@
 import React from 'react';
 import s from './MyOrAll.module.scss';
-import {useAppDispatch, useAppSelector} from "../../../app/store";
-import {setIsMy, setUserId} from "../../../features/packs/packsReducer";
-import {selectIsMy, selectProfileId} from "../../../features/packs/selectors/selectors";
-
+import {useAppDispatch, useAppSelector} from "app/store";
+import {setIsMy, setUserId} from "features/packs/packsReducer";
+import {selectIsMy, selectProfileId} from "features/packs/selectors/selectors";
 
 const MyOrAll = () => {
     const userId = useAppSelector(selectProfileId)

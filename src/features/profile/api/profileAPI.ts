@@ -1,4 +1,4 @@
-import { instance } from '../../../common/constants/instance';
+import { instance } from 'common/constants/instance';
 import { RequestProfileType } from '../../auth/api/authAPI';
 
 export const profileAPI = {
