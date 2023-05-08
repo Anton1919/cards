@@ -1,8 +1,9 @@
-import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {CardParamsType, cardsAPI, CardsType} from "./api/cardsAPI";
 import {AxiosError} from "axios";
 import {handleServerAppError} from "../../utils/error-utils";
 import {setAppStatus} from "../../app/appReducer";
+import {AppRootStateType} from "../../app/store";
 
 type InitialStateType = {
     cards: CardsType[]
@@ -24,13 +25,16 @@ const initialState: InitialStateType = {
     question: ''
 }
 
-export const getCardsTC = createAsyncThunk('cards/usersCards', async (params: CardParamsType, {
+export const getCardsTC = createAsyncThunk('cards/usersCards', async (params: {cardsId: string | undefined}, {
     dispatch,
+    getState,
     rejectWithValue
 }) => {
+    const state = getState() as AppRootStateType
+    const {page, pageCount, question} = state.cards
     dispatch(setAppStatus({status: 'loading'}));
     try {
-        const res = await cardsAPI.getCards({page: params.page, pageCount: params.pageCount, cardsId: params.cardsId})
+        const res = await cardsAPI.getCards({page, pageCount, question, cardsId: params.cardsId})
         dispatch(setAppStatus({status: 'succeeded'}));
         return res.data
     } catch (e) {
@@ -44,7 +48,17 @@ export const getCardsTC = createAsyncThunk('cards/usersCards', async (params: Ca
 const slice = createSlice({
     name: 'cards',
     initialState,
-    reducers: {},
+    reducers: {
+        setCardQuestion: (state, action: PayloadAction<{ payloadProperty: string }>) => {
+            state.question = action.payload.payloadProperty
+        },
+        setCardPage: (state, action: PayloadAction<{cardPage: number}>) => {
+            state.page = action.payload.cardPage
+        },
+        setCardPageCount: (state, action: PayloadAction<{pageCount: number}>) => {
+            state.pageCount = action.payload.pageCount
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getCardsTC.fulfilled, (state, action) => {
@@ -59,3 +73,4 @@ const slice = createSlice({
 })
 
 export const cardsReducer = slice.reducer
+export const {setCardQuestion, setCardPage, setCardPageCount} = slice.actions

@@ -28,8 +28,6 @@ const Packs = () => {
     const sortPack = useAppSelector(selectorSortPack)
     const packName = useAppSelector(selectorPackNameSearch)
 
-    // сделать search переиспользуемым в компоненте cards
-
     useEffect(() => {
         dispatch(getPacks({userId}))
     }, [page, pageCount, userId, min, max, sortPack, packName])

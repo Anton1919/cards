@@ -7,4 +7,5 @@ export const selectCardPageCount = (state: AppRootStateType) => state.cards.page
 export const selectProfileID = (state: AppRootStateType) => state.profile._id
 export const selectUserID = (state: AppRootStateType) => state.cards.packUserId
 export const selectPackName = (state: AppRootStateType) => state.cards.packName
+export const selectCardQuestion = (state: AppRootStateType) => state.cards.question
 

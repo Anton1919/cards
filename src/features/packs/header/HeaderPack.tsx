@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import s from './HeaderPack.module.scss';
 import Button from '../../../common/components/Button/Button';
 import Search from '../../../common/components/Search/Search';
@@ -6,7 +6,7 @@ import MyOrAll from '../../../common/components/MyOrAll/MyOrAll';
 import RangeSlider from '../../../common/components/RangeSlider/RangeSlider';
 import reset from '../../../assets/icons/reset.svg';
 import {useAppDispatch, useAppSelector} from '../../../app/store';
-import {addPackTC, resetAllSettings} from '../packsReducer';
+import {addPackTC, resetAllSettings, setPackName} from '../packsReducer';
 import {selectMaxCardsCount, selectorPackNameSearch} from "../selectors/selectors";
 
 const HeaderPack = () => {
@@ -22,7 +22,6 @@ const HeaderPack = () => {
         dispatch(resetAllSettings({max}))
     }
 
-
     return (
         <div className={s.container}>
             <div className={s.titleWithButton}>
@@ -33,7 +32,7 @@ const HeaderPack = () => {
             </div>
 
             <div className={s.settingPanel}>
-                <Search searchParam={packName}/>
+                <Search searchParam={packName} actionCreator={setPackName}/>
                 <MyOrAll/>
                 <RangeSlider/>
                 <div className={s.image}>

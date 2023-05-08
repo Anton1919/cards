@@ -6,7 +6,8 @@ export const cardsAPI = {
             params: {
                 cardsPack_id: data.cardsId,
                 page: data.page,
-                pageCount: data.pageCount
+                pageCount: data.pageCount,
+                cardQuestion: data.question
             }
         })
     }
@@ -16,6 +17,7 @@ export type CardParamsType = {
     page: number
     pageCount: number
     cardsId: string | undefined
+    question: string
 }
 
 export type CardsType = {

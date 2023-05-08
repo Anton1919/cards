@@ -1,0 +1,16 @@
+@import "src/styles/constants";
+
+.warningMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+
+  & p {
+    padding: 7px;
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 2px solid black;
+    border-radius: 3px;
+  }
+}

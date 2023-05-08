@@ -14,6 +14,7 @@ import PaginationC from '../../../common/components/Pagination/PaginationC';
 import {PackType} from "../api/packsAPI";
 import arrow from '../../../assets/icons/arrpwDown.svg'
 import {selectorSortPack} from "../selectors/selectors";
+import NothingFound from "../../../common/components/NothingFound/NothingFound";
 
 type PackListType = {
     packs: PackType[]
@@ -72,9 +73,7 @@ const PackList = ({packs, pageCount, page, totalCount}: PackListType) => {
             </TableContainer>
 
             {!packs.length &&
-                <div className={s.warningMessage}>
-                   <p>Колоды с введенным названием не найдены. Измените параметры запроса</p>
-                </div>
+                <NothingFound message={'Колоды с введенным названием не найдены. Измените параметры запроса'}/>
             }
 
             <PaginationC page={page}

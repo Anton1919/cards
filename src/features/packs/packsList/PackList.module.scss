@@ -42,17 +42,3 @@
   top: 42%;
   transform: rotate(180deg);
 }
-
-.warningMessage {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  & p {
-    padding: 7px;
-    font-size: 20px;
-    font-weight: bold;
-    border-bottom: 2px solid black;
-    border-radius: 3px;
-  }
-}

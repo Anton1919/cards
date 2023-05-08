@@ -118,8 +118,8 @@ const slice = createSlice({
         setSortPacks: (state, action: PayloadAction<{ sortPacks: string }>) => {
             state.searchParams.sortPacks = action.payload.sortPacks
         },
-        setPackName: (state, action: PayloadAction<{ packName: string }>) => {
-            state.searchParams.packName = action.payload.packName
+        setPackName: (state, action: PayloadAction<{ payloadProperty: string }>) => {
+            state.searchParams.packName = action.payload.payloadProperty
         },
         setIsMy: (state, action: PayloadAction<{ value: boolean }>) => {
             state.searchParams.isMy = action.payload.value

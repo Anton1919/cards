@@ -5,13 +5,14 @@ import Paper from '@mui/material/Paper';
 import s from './Search.module.scss';
 import {useDebounce} from "../../hooks/useDebounce";
 import {useAppDispatch} from "../../../app/store";
-import {setPackName} from "../../../features/packs/packsReducer";
+import {ActionCreatorWithPayload} from "@reduxjs/toolkit";
 
 type SearchType = {
-    searchParam?: string
+    searchParam: string
+    actionCreator: ActionCreatorWithPayload<{ payloadProperty: string }>
 }
 
-const Search = ({searchParam}: SearchType) => {
+const Search = ({searchParam, actionCreator}: SearchType) => {
     const [value, setValue] = useState<string>(searchParam || '')
     const debounceValue = useDebounce<string>(value, 500)
     const dispatch = useAppDispatch()
@@ -21,7 +22,7 @@ const Search = ({searchParam}: SearchType) => {
     }
 
     useEffect(() => {
-        dispatch(setPackName({packName: value}))
+        dispatch(actionCreator({payloadProperty: value}))
     }, [debounceValue])
 
     useEffect(() => {
