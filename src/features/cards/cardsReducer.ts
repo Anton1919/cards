@@ -1,9 +1,10 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {CardParamsType, cardsAPI, CardsType} from "./api/cardsAPI";
+import {cardsAPI, CardsType} from "./api/cardsAPI";
 import {AxiosError} from "axios";
-import {handleServerAppError} from "../../utils/error-utils";
-import {setAppStatus} from "../../app/appReducer";
-import {AppRootStateType} from "../../app/store";
+import {handleServerAppError} from "utils/error-utils";
+import {setAppStatus} from "app/appReducer";
+import {AppRootStateType} from "app/store";
+import {updatePack} from "features/packs/packsReducer";
 
 type InitialStateType = {
     cards: CardsType[]
@@ -25,7 +26,7 @@ const initialState: InitialStateType = {
     question: ''
 }
 
-export const getCardsTC = createAsyncThunk('cards/usersCards', async (params: {cardsId: string | undefined}, {
+export const getCardsTC = createAsyncThunk('cards/usersCards', async (params: { cardsId: string | undefined }, {
     dispatch,
     getState,
     rejectWithValue
@@ -52,10 +53,10 @@ const slice = createSlice({
         setCardQuestion: (state, action: PayloadAction<{ payloadProperty: string }>) => {
             state.question = action.payload.payloadProperty
         },
-        setCardPage: (state, action: PayloadAction<{cardPage: number}>) => {
+        setCardPage: (state, action: PayloadAction<{ cardPage: number }>) => {
             state.page = action.payload.cardPage
         },
-        setCardPageCount: (state, action: PayloadAction<{pageCount: number}>) => {
+        setCardPageCount: (state, action: PayloadAction<{ pageCount: number }>) => {
             state.pageCount = action.payload.pageCount
         },
     },
@@ -68,6 +69,9 @@ const slice = createSlice({
                 state.packUserId = action.payload.packUserId
                 state.page = action.payload.page
                 state.pageCount = action.payload.pageCount
+            })
+            .addCase(updatePack.fulfilled, (state, action) => {
+                state.packName = action.payload.updatedCardsPack.name
             })
     }
 })

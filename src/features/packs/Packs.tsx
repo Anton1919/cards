@@ -18,6 +18,7 @@ import {getPacks} from "./packsReducer";
 import {selectIsLoggedIn} from "common/selectors/selectors";
 import {Navigate} from "react-router-dom";
 import {PATHS} from "common/routes/PATHS";
+import {selectPackName} from "features/cards/selectors/selectors";
 
 const Packs = () => {
     const dispatch = useAppDispatch()
@@ -31,10 +32,11 @@ const Packs = () => {
     const sortPack = useAppSelector(selectorSortPack)
     const packName = useAppSelector(selectorPackNameSearch)
     const isLoggedIn = useAppSelector(selectIsLoggedIn)
+    const cardName = useAppSelector(selectPackName)
 
     useEffect(() => {
         dispatch(getPacks({userId}))
-    }, [page, pageCount, userId, min, max, sortPack, packName])
+    }, [page, pageCount, userId, min, max, sortPack, packName , cardName])
 
     if (!isLoggedIn) {
         return <Navigate to={PATHS.login}/>

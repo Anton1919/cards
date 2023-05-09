@@ -1,8 +1,24 @@
+@import "src/styles/constants";
+
 .packName {
   overflow: hidden;
-
   max-width: 25vw;
-
   word-break: break-word;
   white-space: nowrap;
+
+  & a {
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 16px;
+    color: $font-dark-color;
+  }
+
+}
+
+.text {
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: $font-dark-color;
 }

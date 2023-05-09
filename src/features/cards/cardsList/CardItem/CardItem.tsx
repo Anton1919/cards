@@ -1,10 +1,11 @@
 import React from 'react';
 import TableCell from "@mui/material/TableCell";
-import Grade from "../../../../common/components/Grade/Grade";
 import CardsCrud from "./CardsCrud/CardsCrud";
 import TableRow from "@mui/material/TableRow";
-import {CardsType} from "../../api/cardsAPI";
-import {convertDate} from "../../../../utils/time";
+import {convertDate} from "utils/time";
+import {CardsType} from "features/cards/api/cardsAPI";
+import Rating from '@mui/material/Rating'
+import s from './CardItem.module.scss'
 
 type CardItemType = {
     card: CardsType
@@ -16,17 +17,15 @@ const CardItem = ({card, isOwner}: CardItemType) => {
 
     return (
         <TableRow sx={{'&:last-child td, &:last-child th': {border: 0}}}>
-            <TableCell>{card.question}</TableCell>
-            <TableCell>{card.answer}</TableCell>
-            <TableCell align={'center'}>{date}</TableCell>
+            <TableCell className={s.text}>{card.question}</TableCell>
+            <TableCell className={s.text}>{card.answer}</TableCell>
+            <TableCell className={s.text} align={'center'}>{date}</TableCell>
             <TableCell>
-                <div style={{display: 'flex', justifyContent: 'center'}}>
-                    <Grade/>
-                    <Grade/>
-                    <Grade/>
-                    <Grade/>
-                    <Grade/>
-                </div>
+                <Rating sx={{display: 'flex', justifyContent: 'center'}}
+                        name={'read-only'}
+                        value={card.grade}
+                        readOnly
+                />
             </TableCell>
             {isOwner && <TableCell> <CardsCrud/></TableCell>}
         </TableRow>

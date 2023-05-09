@@ -36,7 +36,8 @@ const CardsList = ({isOwner, page, pageCount, totalCount}: CardsListType) => {
     return (
         <> {status === "loading"
             ? <CircularProgress sx={{marginLeft: '45%', marginTop: '50px'}} size={60}/>
-            : <>
+            :
+            <>
                 <TableContainer className={s.tableContainer} component={Paper}>
                     <Table sx={{minWidth: 650}}>
                         <TableHead>
@@ -70,7 +71,7 @@ const CardsList = ({isOwner, page, pageCount, totalCount}: CardsListType) => {
             </>
         }
         </>
-    );
-};
+    )
+}
 
 export default CardsList;

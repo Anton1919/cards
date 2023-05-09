@@ -3,9 +3,9 @@ import s from './PackItem.module.scss';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import {Link} from 'react-router-dom';
-import {PackType} from '../../api/packsAPI';
-import {convertDate} from '../../../../utils/time';
+import {convertDate} from 'utils/time';
 import PackCrud from './PackCrud/PackCrud';
+import {PackType} from "features/packs/api/packsAPI";
 
 type PacksType = {
     packs: PackType;
@@ -21,15 +21,15 @@ const PackItem = ({packs}: PacksType) => {
                     {packs.name}
                 </Link>
             </TableCell>
-            <TableCell align='right'>
+            <TableCell align='left'>
                 {/*<Picture deckCover={pack.deckCover} defaultCover={defaultCover} />*/}
                 Картинка
             </TableCell>
-            <TableCell align='right'>{packs.cardsCount}</TableCell>
-            <TableCell align='right'>{date}</TableCell>
-            <TableCell align='right'>{packs.user_name}</TableCell>
+            <TableCell align='right' className={s.text}>{packs.cardsCount}</TableCell>
+            <TableCell align='right' className={s.text}>{date}</TableCell>
+            <TableCell align='right' className={s.text}>{packs.user_name}</TableCell>
             <TableCell align='right'>
-                <PackCrud usersID={packs.user_id} packId={packs._id}/>
+                <PackCrud packs={packs} usersID={packs.user_id} packId={packs._id}/>
             </TableCell>
         </TableRow>
     );

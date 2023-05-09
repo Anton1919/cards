@@ -22,7 +22,25 @@ export const packsAPI = {
     deletePack(id: string) {
         return instance.delete<ResponseDeletePackType>(`cards/pack?id=${id}`);
     },
+    editPack(data: UpdatePackType) {
+        return instance.put<ResponseUpdateType>(`cards/pack`, data)
+    },
 };
+
+export type UpdatePackType = {
+    cardsPack: {
+        _id: string
+        name?: string
+        private?: boolean
+        deckCover?: string
+    }
+}
+
+type ResponseUpdateType = {
+    updatedCardsPack: PackType
+    token: string
+    tokenDeathTime: number
+}
 
 type ResponseDeletePackType = {
     deletedCardsPack: PackType;

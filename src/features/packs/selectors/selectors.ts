@@ -1,4 +1,4 @@
-import {AppRootStateType} from '../../../app/store';
+import {AppRootStateType} from 'app/store';
 
 export const selectPacks = (state: AppRootStateType) => state.packs.cardPacks;
 export const selectTotalCount = (state: AppRootStateType) => state.packs.cardPacksTotalCount;

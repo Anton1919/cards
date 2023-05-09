@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './CardsCrud.module.scss'
-import edit from "../../../../../assets/icons/edit.svg";
-import deleteIcon from "../../../../../assets/icons/Delete.svg";
+import edit from "assets/icons/edit.svg";
+import deleteIcon from "assets/icons/Delete.svg";
 
 const CardsCrud = () => {
     return (

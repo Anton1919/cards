@@ -22,7 +22,7 @@ const CardsHeader = ({isOwner, packName}: CardsHeaderType) => {
                 {isOwner && <img src={settingsCard} alt="settings"/>}
             </div>
             <div className={s.btn}>
-                <Button name={'Add new card'} variant={'primary'}/>
+                {isOwner ? <Button name={'Add new card'} variant={'primary'}/> : <Button name={'Learn to pack'} variant={'primary'}/>}
             </div>
         </div>
         <div className={s.search}>

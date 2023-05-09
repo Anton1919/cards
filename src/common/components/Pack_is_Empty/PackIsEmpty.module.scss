@@ -1,0 +1,31 @@
+@import "src/styles/constants";
+
+.container {
+
+}
+
+.title {
+  margin-top: 40px;
+}
+
+.info {
+  margin-top: 85px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+
+  & p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: $font-dark-color;
+    opacity: 0.5;
+  }
+
+  .btn {
+    width: 175px;
+    margin-top: 35px;
+  }
+}
+

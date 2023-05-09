@@ -18,6 +18,7 @@ import {Navigate, useParams} from "react-router-dom";
 import {getCardsTC} from "./cardsReducer";
 import {PATHS} from "common/routes/PATHS";
 import {selectIsLoggedIn} from "common/selectors/selectors";
+import PackIsEmpty from 'common/components/Pack_is_Empty/PackIsEmpty';
 
 const Cards = () => {
     const dispatch = useAppDispatch()
@@ -42,14 +43,24 @@ const Cards = () => {
     }
 
     return <div className={s.container}>
-        <div className={s.backTo}><BackToPackList/></div>
-        <CardsHeader isOwner={isOwner} packName={packName}/>
-        <CardsList
-            isOwner={isOwner}
-            totalCount={totalCount}
-            page={page}
-            pageCount={pageCount}
-        />
+        <div className={s.backTo}>
+            <BackToPackList/>
+        </div>
+
+        {!cards.length && isOwner
+            ? <PackIsEmpty/>
+            : <>
+                <CardsHeader isOwner={isOwner} packName={packName}/>
+                <CardsList
+                    isOwner={isOwner}
+                    totalCount={totalCount}
+                    page={page}
+                    pageCount={pageCount}
+                />
+            </>
+        }
+
+
     </div>;
 };
 

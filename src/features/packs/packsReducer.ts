@@ -1,9 +1,9 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {AddPackType, packsAPI, PackType} from './api/packsAPI';
-import {setAppStatus} from '../../app/appReducer';
+import {AddPackType, packsAPI, PackType, UpdatePackType} from './api/packsAPI';
+import {setAppStatus} from 'app/appReducer';
 import {AxiosError} from 'axios';
-import {handleServerAppError} from '../../utils/error-utils';
-import {AppRootStateType} from "../../app/store";
+import {handleServerAppError} from 'utils/error-utils';
+import {AppRootStateType} from "app/store";
 
 type InitialStateType = {
     cardPacks: PackType[];
@@ -85,6 +85,23 @@ export const deletePack = createAsyncThunk(
         dispatch(setAppStatus({status: 'loading'}));
         try {
             const res = await packsAPI.deletePack(packId);
+            dispatch(setAppStatus({status: 'succeeded'}));
+            return res.data;
+        } catch (e) {
+            const error = e as AxiosError;
+            handleServerAppError(error, dispatch);
+            dispatch(setAppStatus({status: 'succeeded'}));
+            return rejectWithValue({});
+        }
+    }
+);
+
+export const updatePack = createAsyncThunk(
+    'packs/updatePack',
+    async (param: UpdatePackType, {dispatch, rejectWithValue}) => {
+        dispatch(setAppStatus({status: 'loading'}));
+        try {
+            const res = await packsAPI.editPack(param);
             dispatch(setAppStatus({status: 'succeeded'}));
             return res.data;
         } catch (e) {

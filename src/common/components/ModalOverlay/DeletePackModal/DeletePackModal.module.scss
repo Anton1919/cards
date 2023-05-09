@@ -1,0 +1,50 @@
+@import 'src/styles/constants';
+
+.titleWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: 60px;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    background: $border-grey-color;
+  }
+
+  .title {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    color: $font-dark-color;
+  }
+
+  .image {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+  }
+}
+
+.message {
+  margin-top: 50px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: $font-dark-color;
+}
+
+.btnWrapper {
+  margin: 35px 0 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .btn {
+    width: 127px;
+  }
+}
