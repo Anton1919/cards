@@ -71,7 +71,6 @@ export const addPackTC = createAsyncThunk(
         try {
             const res = await packsAPI.addPack(param);
             dispatch(getPacks({userId: packUserId}))
-            dispatch(setAppStatus({status: 'succeeded'}));
             return res;
         } catch (e) {
             const error = e as AxiosError;
@@ -91,7 +90,6 @@ export const deletePack = createAsyncThunk(
         try {
             const res = await packsAPI.deletePack(packId);
             dispatch(getPacks({userId: packUserId}))
-            dispatch(setAppStatus({status: 'succeeded'}));
             return res.data;
         } catch (e) {
             const error = e as AxiosError;
@@ -167,13 +165,13 @@ const slice = createSlice({
                 state.searchParams.page = action.payload.page;
                 state.searchParams.pageCount = action.payload.pageCount;
             })
-            .addCase(addPackTC.fulfilled, (state, action) => {
-                state.cardPacks.unshift({...action.payload.newCardsPack});
-            })
-            .addCase(deletePack.fulfilled, (state, action) => {
-                const index = state.cardPacks.findIndex((el) => el._id === action.payload.deletedCardsPack._id);
-                state.cardPacks.splice(index, 1);
-            });
+            // .addCase(addPackTC.fulfilled, (state, action) => {
+            //     state.cardPacks.unshift({...action.payload.newCardsPack});
+            // })
+            // .addCase(deletePack.fulfilled, (state, action) => {
+            //     const index = state.cardPacks.findIndex((el) => el._id === action.payload.deletedCardsPack._id);
+            //     state.cardPacks.splice(index, 1);
+            // });
     },
 });
 

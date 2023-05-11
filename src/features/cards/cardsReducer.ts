@@ -5,7 +5,6 @@ import {handleServerAppError} from "utils/error-utils";
 import {setAppStatus} from "app/appReducer";
 import {AppRootStateType} from "app/store";
 import {updatePack} from "features/packs/packsReducer";
-import cards from "features/cards/Cards";
 
 type InitialStateType = {
     cards: CardsType[]
@@ -63,7 +62,6 @@ export const addCard = createAsyncThunk('cards/addCard', async (params: AddCardT
             }
         })
         dispatch(getCardsTC({cardsId: params.card.cardsPack_id}))
-        dispatch(setAppStatus({status: 'succeeded'}));
         return res.data
     } catch (e) {
         const error = e as AxiosError;
@@ -75,14 +73,12 @@ export const addCard = createAsyncThunk('cards/addCard', async (params: AddCardT
 
 export const deleteCard = createAsyncThunk('cards/deleteCard', async (cardId: string, {
     dispatch,
-    getState,
     rejectWithValue
 }) => {
     dispatch(setAppStatus({status: 'loading'}));
     try {
         const res = await cardsAPI.deleteCard(cardId)
         dispatch(getCardsTC({cardsId: res.data.deletedCard.cardsPack_id}))
-        dispatch(setAppStatus({status: 'succeeded'}));
         return res.data
     } catch (e) {
         const error = e as AxiosError;
@@ -114,11 +110,14 @@ export const updateCard = createAsyncThunk('cards/updateCard', async (params: { 
     }
 })
 
-export const updateGrade = createAsyncThunk('cards/updateGrade', async (params: UpdateCardGrade, {dispatch, rejectWithValue}) => {
-    dispatch(setAppStatus({ status: 'loading'}))
+export const updateGrade = createAsyncThunk('cards/updateGrade', async (params: UpdateCardGrade, {
+    dispatch,
+    rejectWithValue
+}) => {
+    dispatch(setAppStatus({status: 'loading'}))
     try {
         const res = await cardsAPI.updateCardGrade({grade: params.grade, card_id: params.card_id})
-        console.log(res.data)
+        dispatch(setAppStatus({status: 'succeeded'}));
         return res.data
     } catch (e) {
         const error = e as AxiosError;

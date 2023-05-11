@@ -4,7 +4,7 @@ import Button from "common/components/Button/Button";
 import s from './LearnCard.module.scss'
 import LearnItem from "common/components/LearnCard/LearnItem/LearnItem";
 import {useAppDispatch, useAppSelector} from "app/store";
-import {selectCards, selectTotalCount} from "features/cards/selectors/selectors";
+import {selectCards, selectCardShots, selectTotalCount} from "features/cards/selectors/selectors";
 import {CardsType} from "features/cards/api/cardsAPI";
 import {getCardsTC, setCardPageCount, updateGrade} from "features/cards/cardsReducer";
 import {Navigate, useParams} from "react-router-dom";
@@ -32,9 +32,9 @@ const LearnCard = () => {
     const cards = useAppSelector(selectCards)
     const totalCardsCount = useAppSelector(selectTotalCount)
     const isLoggedIn = useAppSelector(selectIsLoggedIn)
+    const shots = useAppSelector(selectCardShots)
     const dispatch = useAppDispatch()
     const {packId} = useParams()
-    const shots = useAppSelector(state => state.cards.shots)
 
     useEffect(() => {
         dispatch(setCardPageCount({pageCount: totalCardsCount}))
