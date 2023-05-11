@@ -71,7 +71,6 @@ const AddNewPackModal = ({isOpen, onClose}: AddPackModalType) => {
                 <div className={s.btn}>
                     <Button name={'Save'} variant={'primary'} handler={onSaveHandler}/>
                 </div>
-
             </div>
 
         </ModalOverlay>

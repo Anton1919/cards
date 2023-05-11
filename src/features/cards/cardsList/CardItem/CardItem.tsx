@@ -27,7 +27,7 @@ const CardItem = ({card, isOwner}: CardItemType) => {
                         readOnly
                 />
             </TableCell>
-            {isOwner && <TableCell> <CardsCrud/></TableCell>}
+            {isOwner && <TableCell> <CardsCrud card={card}/></TableCell>}
         </TableRow>
     );
 };

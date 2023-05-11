@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import TableContainer from "@mui/material/TableContainer";
 import s from "../Cards.module.scss";
 import Paper from "@mui/material/Paper";

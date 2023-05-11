@@ -17,3 +17,19 @@
     width: 100%;
   }
 }
+
+.btn {
+  height: 16px;
+  width: 16px;
+  background-color: inherit;
+  cursor: pointer;
+
+  & a {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.disabled {
+  opacity: .5;
+}

@@ -7,6 +7,7 @@ export const PATHS = {
     newPassword: '/set-new-password/:token',
     packsList: '/packs',
     pack: '/packs/:packID',
+    learn: '/learn/:packId',
     notFound: '/404',
     unknown: '/*',
 };

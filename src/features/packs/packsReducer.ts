@@ -64,10 +64,13 @@ export const getPacks = createAsyncThunk(
 
 export const addPackTC = createAsyncThunk(
     'packs/addPack',
-    async (param: AddPackType, {dispatch, rejectWithValue}) => {
+    async (param: AddPackType, {dispatch, getState, rejectWithValue}) => {
+        const state = getState() as AppRootStateType
+        const {packUserId} = state.cards
         dispatch(setAppStatus({status: 'loading'}));
         try {
             const res = await packsAPI.addPack(param);
+            dispatch(getPacks({userId: packUserId}))
             dispatch(setAppStatus({status: 'succeeded'}));
             return res;
         } catch (e) {
@@ -81,10 +84,13 @@ export const addPackTC = createAsyncThunk(
 
 export const deletePack = createAsyncThunk(
     'packs/deletePack',
-    async (packId: string, {dispatch, rejectWithValue}) => {
+    async (packId: string, {dispatch, getState, rejectWithValue}) => {
+        const state = getState() as AppRootStateType
+        const {packUserId} = state.cards
         dispatch(setAppStatus({status: 'loading'}));
         try {
             const res = await packsAPI.deletePack(packId);
+            dispatch(getPacks({userId: packUserId}))
             dispatch(setAppStatus({status: 'succeeded'}));
             return res.data;
         } catch (e) {

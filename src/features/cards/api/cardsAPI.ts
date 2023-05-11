@@ -1,4 +1,4 @@
-import {instance} from "../../../common/constants/instance";
+import {instance} from "common/constants/instance";
 
 export const cardsAPI = {
     getCards(data: CardParamsType) {
@@ -10,6 +10,79 @@ export const cardsAPI = {
                 cardQuestion: data.question
             }
         })
+    },
+    addCard(data: AddCardType) {
+        return instance.post<ResponseAddCardType>('cards/card', data)
+    },
+
+    deleteCard(cardId: string) {
+        return instance.delete(`cards/card?id=${cardId}`)
+    },
+
+    updateCard(data: UpdateCardType) {
+        return instance.put<ResponseUpdateCard>('cards/card', data)
+    },
+
+    updateCardGrade(data: UpdateCardGrade) {
+        return instance.put<ResponseGradeUpdateGradeType>('cards/grade', data)
+    }
+}
+
+ type ResponseGradeUpdateGradeType = {
+    updatedGrade: UpdatedGrade
+    token: string
+    tokenDeathTime: number
+}
+
+export type UpdatedGrade = {
+    card_id: string
+    user_id: string
+    cardsPack_id: string
+    grade: number
+    shots: number
+    more_id: string
+    _id: string
+    created: string
+    updated: string
+    __v: number
+}
+
+export type UpdateCardGrade = {
+    grade: number
+    card_id: string
+}
+
+type ResponseUpdateCard = {
+    updatedCard: CardsType
+    token: string
+    tokenDeathTime: number
+}
+
+export type UpdateCardType = {
+    card: {
+        _id: string
+        question: string
+        answer: string
+    }
+}
+
+type ResponseAddCardType = {
+    newCard: CardsType
+    token: string
+    tokenDeathTime: number
+}
+
+export type AddCardType = {
+    card: {
+        cardsPack_id: string | undefined
+        question?: string
+        answer?: string
+        grade?: number
+        shots?: number
+        answerImg?: string
+        questionImg?: string
+        questionVideo?: string
+        answerVideo?: string
     }
 }
 
@@ -21,15 +94,22 @@ export type CardParamsType = {
 }
 
 export type CardsType = {
+    _id: string
     answer: string
     question: string
     cardsPack_id: string
+    questionImg?: string
+    answerImg?: string
     grade: number
-    shots: number
+    shots?: number
     user_id: string
     created: string
     updated: string
-    _id: string
+    comments?: string
+    type?: string
+    rating?: number
+    more_id?: string
+    card_id?: string
 }
 
 type ResponseCardsType = {

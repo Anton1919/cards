@@ -8,6 +8,8 @@ import {selectIdForPackCrud} from "../../../selectors/selectors";
 import DeletePackModal from "common/components/ModalOverlay/DeletePackModal/DeletePackModal";
 import EditPackModal from "common/components/ModalOverlay/EditPackModal/EditPackModal";
 import {PackType} from "features/packs/api/packsAPI";
+import {Link} from "react-router-dom";
+import IconButton from "@mui/material/IconButton";
 
 type PackCrudType = {
     packs: PackType
@@ -17,15 +19,12 @@ type PackCrudType = {
 
 const PackCrud = ({usersID, packId, packs}: PackCrudType) => {
     const [deleteIsOpen, setDeleteModal] = useState(false)
-    const [learnIsOpen, setLearnModal] = useState(false)
     const [editIsOpen, setEditModal] = useState(false)
     const id = useAppSelector(selectIdForPackCrud);
+    const disabled = packs.cardsCount === 0
 
     const openDeleteModalHandler = () => {
         setDeleteModal(true)
-    }
-    const openLearnModalHandler = () => {
-        setLearnModal(true)
     }
     const openEditModalHandler = () => {
         setEditModal(true)
@@ -33,9 +32,12 @@ const PackCrud = ({usersID, packId, packs}: PackCrudType) => {
 
     return (
         <div className={s.container}>
-            <div className={s.icon}>
-                <img src={learn} alt={'learn icon'}/>
-            </div>
+
+            <IconButton size={'small'} disabled={disabled} className={disabled ? `${s.btn} ${s.disabled}` : s.btn}>
+                <Link to={`/learn/${packs._id}`}>
+                    <img src={learn} alt={'learn icon'}/>
+                </Link>
+            </IconButton>
 
             {usersID === id && (
                 <div className={s.icon}>
