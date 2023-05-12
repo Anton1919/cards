@@ -23,7 +23,7 @@ const Button = ({name, disabled, handler, variant = 'primary'}: ButtonPropsType)
     }
 
     return (
-        <button className={buttonStyle} onClick={handler} disabled={disabled}>
+        <button className={disabled ? buttonStyle + " " + s.disabled : buttonStyle} onClick={handler} disabled={disabled}>
             {name}
         </button>
     );

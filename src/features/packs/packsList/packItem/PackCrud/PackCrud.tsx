@@ -19,7 +19,7 @@ type PackCrudType = {
 
 const PackCrud = ({usersID, packId, packs}: PackCrudType) => {
     const [deleteIsOpen, setDeleteModal] = useState(false)
-    const [editIsOpen, setEditModal] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
     const id = useAppSelector(selectIdForPackCrud);
     const disabled = packs.cardsCount === 0
 
@@ -27,8 +27,12 @@ const PackCrud = ({usersID, packId, packs}: PackCrudType) => {
         setDeleteModal(true)
     }
     const openEditModalHandler = () => {
-        setEditModal(true)
+        setIsOpen(true)
     }
+
+    const onClosePackModal = () => [
+        setIsOpen(false)
+    ]
 
     return (
         <div className={s.container}>
@@ -42,10 +46,10 @@ const PackCrud = ({usersID, packId, packs}: PackCrudType) => {
             {usersID === id && (
                 <div className={s.icon}>
                     <img src={edit} alt={'edit icon'} onClick={openEditModalHandler}/>
-                    {editIsOpen && <EditPackModal
+                    {isOpen && <EditPackModal
                         packs={packs}
-                        isOpen={editIsOpen}
-                        onClose={setEditModal}
+                        isOpen={isOpen}
+                        onClose={onClosePackModal}
                     />}
                 </div>
             )}
@@ -53,6 +57,7 @@ const PackCrud = ({usersID, packId, packs}: PackCrudType) => {
                 <div className={s.icon}>
                     <img src={deleteIcon} alt={'delete icon'} onClick={openDeleteModalHandler}/>
                     {deleteIsOpen && <DeletePackModal
+                        packName={packs.name}
                         packId={packId}
                         isOpen={deleteIsOpen}
                         onClose={setDeleteModal}

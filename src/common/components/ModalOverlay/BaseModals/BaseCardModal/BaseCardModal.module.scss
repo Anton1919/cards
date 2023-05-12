@@ -1,0 +1,145 @@
+@import '../../../../../styles/constants';
+
+.titleWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: 60px;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    background: $border-grey-color;
+  }
+
+  .title {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    color: $font-dark-color;
+  }
+
+  .image {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+  }
+}
+
+.chooseQuestion {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+
+  & span {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: $font-dark-color;
+    opacity: 0.5;
+    margin-bottom: 5px;
+  }
+}
+
+.question {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  & input {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: $font-dark-color;
+    text-decoration: none;
+    outline: none;
+    border: none;
+  }
+
+  &::after {
+    position: absolute;
+    content: '';
+    bottom: -7px;
+    left: 0;
+    border-radius: 2px;
+    height: 2px;
+    width: 100%;
+    background: #24254A;
+    opacity: 0.2;
+  }
+  & span {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: $font-dark-color;
+    opacity: 0.5;
+    margin-bottom: 5px;
+  }
+
+  & p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: $font-dark-color;
+  }
+}
+
+.answer {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  & input {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: $font-dark-color;
+    text-decoration: none;
+    outline: none;
+    border: none;
+  }
+
+  &::after {
+    position: absolute;
+    content: '';
+    bottom: -7px;
+    left: 0;
+    border-radius: 2px;
+    height: 2px;
+    width: 100%;
+    background: #24254A;
+    opacity: 0.2;
+  }
+  & span {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: $font-dark-color;
+    opacity: 0.5;
+    margin-bottom: 5px;
+  }
+
+  & p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    color: $font-dark-color;
+  }
+}
+
+.btnWrapper {
+  margin: 40px 0 15px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .btn {
+    width: 127px;
+  }
+}

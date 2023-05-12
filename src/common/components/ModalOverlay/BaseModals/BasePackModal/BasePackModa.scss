@@ -1,0 +1,111 @@
+@import 'src/styles/constants';
+
+.titleWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+
+  &::before {
+    position: absolute;
+    content: '';
+    top: 60px;
+    left: 0;
+    height: 1px;
+    width: 100%;
+    background: $border-grey-color;
+  }
+
+  .title {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    color: $font-dark-color;
+  }
+
+  .image {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+  }
+}
+
+.changeName {
+  margin-top: 40px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  .inputChangeName {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    color: $font-dark-color;
+    text-decoration: none;
+    outline: none;
+    border: none;
+  }
+
+  .placeholder {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 20px;
+    color: $font-dark-color;
+    opacity: 0.5;
+
+    &::before {
+      position: absolute;
+      content: '';
+      bottom: -7px;
+      left: 0;
+      border-radius: 2px;
+      height: 2px;
+      width: 100%;
+      background: $border-grey-color;
+    }
+  }
+
+  .name {
+    margin-top: 2px;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    color: $font-dark-color;
+    cursor: pointer;
+  }
+}
+
+.private {
+  margin-top: 35px;
+  display: flex;
+  align-items: center;
+
+  & input {
+    cursor: pointer;
+  }
+
+  & span {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    margin-left: 12px;
+    color: $font-dark-color;
+    opacity: 0.8;
+  }
+}
+
+.btnWrapper {
+  margin: 30px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .btn {
+    width: 127px;
+  }
+}
+

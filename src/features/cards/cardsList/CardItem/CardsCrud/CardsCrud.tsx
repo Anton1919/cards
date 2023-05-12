@@ -33,12 +33,15 @@ const CardsCrud = ({card}: CardCrudType) => {
     return (
         <div className={s.container}>
             <div className={s.icon}>
-                {isEditOpen && <EditCardModal cardId={card._id} cardQuestion={card.question} cardAnswer={card.answer}
-                                              isOpen={isEditOpen} onClose={closeEditHandler}/>}
+                {isEditOpen && <EditCardModal card={card}
+                                              isOpen={isEditOpen}
+                                              onClose={closeEditHandler}/>}
                 <img src={edit} alt={'edit icon'} onClick={openEditHandler}/>
             </div>
             <div className={s.icon}>
-                {isOpen && <DeleteCardModal cardName={card.question} cardId={card._id} isOpen={isOpen}
+                {isOpen && <DeleteCardModal cardName={card.question}
+                                            cardId={card._id}
+                                            isOpen={isOpen}
                                             onClose={closeHandler}/>}
                 <img src={deleteIcon} alt={'delete icon'} onClick={openHandler}/>
             </div>
