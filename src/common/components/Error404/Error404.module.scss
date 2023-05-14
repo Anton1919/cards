@@ -1,0 +1,41 @@
+@import 'src/styles/constants';
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  .wrapper {
+    display: flex;
+
+    .description{
+      width: 220px;
+      margin-right: 66px;
+
+      .title{
+        font-weight: 600;
+        font-size: 50px;
+        line-height: 61px;
+        color: $font-dark-color;
+      }
+
+      .text{
+        margin-top: 13px;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 36px;
+        color: $font-dark-color;
+      }
+
+      .btn{
+        margin-top: 36px;
+      }
+    }
+
+    .image{
+
+    }
+  }
+}
+

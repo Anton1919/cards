@@ -1,22 +1,36 @@
-import React from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import s from './Profile.module.scss';
 import Card from 'common/components/Card/Card';
-import check from 'assets/image/check.png';
+import defaultAva from 'assets/image/defaultAva.png';
 import Button from 'common/components/Button/Button';
 import {useAppDispatch, useAppSelector} from 'app/store';
 import {Navigate} from 'react-router-dom';
 import {PATHS} from 'common/routes/PATHS';
-import {selectIsLoggedIn, selectStatus, selectUser} from 'common/selectors/selectors';
+import {selectAvatar, selectIsLoggedIn, selectName, selectStatus, selectUser} from 'common/selectors/selectors';
 import BackToPackList from "common/components/BackToPackList/BackToPackList";
 import EditableSpan from "features/profile/EditableSpan/EditableSpan";
 import {logout} from "features/auth/authReducer/authReducer";
 import LinearProgress from "@mui/material/LinearProgress";
+import {setAppError} from "app/appReducer";
+import {onUpload} from "utils/uploadImage";
+import {changeMyProfile} from "features/profile/Profile/profileReducer";
 
 const Profile = () => {
+    const avatar = useAppSelector(selectAvatar)
+    const [ava, setAva] = useState(avatar)
     const isLoggedIn = useAppSelector(selectIsLoggedIn);
     const user = useAppSelector(selectUser);
     const dispatch = useAppDispatch();
     const status = useAppSelector(selectStatus)
+    const profileName = useAppSelector(selectName)
+
+    console.log(profileName)
+
+    useEffect(() => {
+        if (ava) {
+            dispatch(changeMyProfile({name: profileName || 'Name', avatar: ava}))
+        }
+    }, [ava])
 
     if (status === 'loading') {
         return <LinearProgress/>
@@ -30,18 +44,26 @@ const Profile = () => {
         dispatch(logout());
     };
 
+    const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        onUpload(e, setAva, dispatch)
+    }
+
+    const errorHandler = () => {
+        dispatch(setAppError({error: 'Попробуй другую картинку'}))
+    }
+
     return (
         <Card title={'Personal Information'}>
             <BackToPackList/>
             <div className={s.image}>
                 <label>
-                    <img src={check} alt='logo'/>
-                    <input type='file' style={{display: 'none'}}/>
+                    <img src={ava ? ava : defaultAva} alt='logo' onError={errorHandler}/>
+                    <input type='file' style={{display: 'none'}} onChange={uploadHandler}/>
                 </label>
             </div>
 
             <div className={s.nickname}>
-                <EditableSpan name={user.name}/>
+                <EditableSpan name={profileName}/>
             </div>
 
             <div className={s.emailDescription}>

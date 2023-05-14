@@ -13,7 +13,7 @@ export type ContentType = {
     id: number;
     icon: string;
     title: string;
-    link: string;
+    link?: string;
     handler: (e: MouseEvent<HTMLDivElement>) => void
 };
 

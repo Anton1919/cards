@@ -5,19 +5,20 @@ import {updatePack} from "features/packs/packsReducer";
 import {useState} from "react";
 
 type PropsType = {
-    packs: PackType
+    packNameFromProps: string
+    packId: string
     isOpen: boolean
     onClose: () => void
 }
 
-const EditPackModal = ({isOpen, onClose, packs}: PropsType) => {
-    const [packName, setPackName] = useState(packs.name)
+const EditPackModal = ({isOpen, onClose, packNameFromProps, packId}: PropsType) => {
+    const [packName, setPackName] = useState(packNameFromProps)
     const [privateStatus, setPrivateStatus] = useState(false)
     const dispatch = useAppDispatch()
 
     const saveHandler = () => {
         onClose()
-        dispatch(updatePack({cardsPack: {name: packName, _id: packs._id, private: privateStatus, deckCover: ''}}))
+        dispatch(updatePack({cardsPack: {name: packName, _id: packId, private: privateStatus, deckCover: ''}}))
     }
 
     return (

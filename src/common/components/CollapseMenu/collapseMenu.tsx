@@ -19,7 +19,7 @@ const CollapseMenu = ({contentData}: CollapsedType) => {
                                 className={s.item}
                                 key={el.id}
                                 onClick={(e) => {
-                                    navigate(el.link);
+                                    navigate(el.link ? el.link : '');
                                     el.handler(e);
                                 }}
                             >

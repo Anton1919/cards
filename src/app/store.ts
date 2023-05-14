@@ -8,6 +8,7 @@ import {forgotReducer} from 'features/auth/forgot-password/fogotPasswordReducer'
 import {profileReducer} from 'features/profile/Profile/profileReducer';
 import {packsReducer} from 'features/packs/packsReducer';
 import {cardsReducer} from "features/cards/cardsReducer";
+import {loadState, saveState} from "utils/localStorage";
 
 const rootReducer = combineReducers({
     app: appReducer,
@@ -18,10 +19,17 @@ const rootReducer = combineReducers({
     cards: cardsReducer
 });
 
+const persistedState = loadState()
+
 export const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunkMiddleware),
+    preloadedState:persistedState
 });
+
+store.subscribe(() => {
+    saveState(store.getState())
+})
 
 export type AppRootStateType = ReturnType<typeof rootReducer>;
 

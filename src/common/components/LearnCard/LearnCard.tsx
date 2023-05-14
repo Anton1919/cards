@@ -4,7 +4,7 @@ import Button from "common/components/Button/Button";
 import s from './LearnCard.module.scss'
 import LearnItem from "common/components/LearnCard/LearnItem/LearnItem";
 import {useAppDispatch, useAppSelector} from "app/store";
-import {selectCards, selectCardShots, selectTotalCount} from "features/cards/selectors/selectors";
+import {selectCards, selectCardShots, selectPackName, selectTotalCount} from "features/cards/selectors/selectors";
 import {CardsType} from "features/cards/api/cardsAPI";
 import {getCardsTC, setCardPageCount, updateGrade} from "features/cards/cardsReducer";
 import {Navigate, useParams} from "react-router-dom";
@@ -35,6 +35,7 @@ const LearnCard = () => {
     const shots = useAppSelector(selectCardShots)
     const dispatch = useAppDispatch()
     const {packId} = useParams()
+    const packName = useAppSelector(selectPackName)
 
     useEffect(() => {
         dispatch(setCardPageCount({pageCount: totalCardsCount}))
@@ -64,8 +65,8 @@ const LearnCard = () => {
         setValue(e.currentTarget.value)
     }
 
-    if(!isLoggedIn) {
-        return <Navigate to={PATHS.login} />
+    if (!isLoggedIn) {
+        return <Navigate to={PATHS.login}/>
     }
 
     return (
@@ -73,7 +74,7 @@ const LearnCard = () => {
             <BackToPackList/>
 
             <div className={s.title}>
-                <h2>Learn "Pack Name"</h2>
+                <h2>Learn Pack: {packName}</h2>
             </div>
 
             <div className={s.learnBlock}>

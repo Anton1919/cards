@@ -22,8 +22,12 @@ const RangeSlider = () => {
         }
     }, [min, max, maxValue])
 
-    const handleChange = (event: Event, newValue: number | number[]) => {
+    useEffect(() => {
+        if(minValue !==min) setValue([minValue, value[1]])
+        if(maxValue !==max) setValue([value[0], maxValue])
+    },[maxValue, minValue])
 
+    const handleChange = (event: Event, newValue: number | number[]) => {
         setValue(newValue as number[])
     }
 

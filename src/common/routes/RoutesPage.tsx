@@ -10,6 +10,7 @@ import Profile from 'features/profile/Profile/Profile';
 import Packs from 'features/packs/Packs';
 import Cards from "features/cards/Cards";
 import LearnCard from "common/components/LearnCard/LearnCard";
+import Error404 from "common/components/Error404/Error404";
 
 const RoutesPage = () => {
   return (
@@ -24,8 +25,8 @@ const RoutesPage = () => {
       <Route path={PATHS.packsList} element={<Packs />} />
       <Route path={PATHS.pack} element={<Cards />} />
       <Route path={PATHS.learn} element={<LearnCard />} />
-      {/*<Route path={PATHS.notFound} element={<Error404 />} />*/}
-      {/*<Route path={PATHS.unknown} element={<Navigate to="/404" />} />*/}
+      <Route path={PATHS.notFound} element={<Error404 />} />
+      <Route path={PATHS.unknown} element={<Navigate to="/404" />} />
     </Routes>
   );
 };

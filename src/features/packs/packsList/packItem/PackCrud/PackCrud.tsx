@@ -30,10 +30,6 @@ const PackCrud = ({usersID, packId, packs}: PackCrudType) => {
         setIsOpen(true)
     }
 
-    const onClosePackModal = () => [
-        setIsOpen(false)
-    ]
-
     return (
         <div className={s.container}>
 
@@ -47,9 +43,10 @@ const PackCrud = ({usersID, packId, packs}: PackCrudType) => {
                 <div className={s.icon}>
                     <img src={edit} alt={'edit icon'} onClick={openEditModalHandler}/>
                     {isOpen && <EditPackModal
-                        packs={packs}
+                        packId={packs._id}
+                        packNameFromProps={packs.name}
                         isOpen={isOpen}
-                        onClose={onClosePackModal}
+                        onClose={() => setIsOpen(false)}
                     />}
                 </div>
             )}

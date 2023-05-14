@@ -6,12 +6,13 @@ import {useAppDispatch, useAppSelector} from './store';
 import {PreLoader} from 'common/components/Loader/PreLoader';
 import {me} from 'features/auth/authReducer/authReducer';
 import {ErrorSnackbar} from 'common/components/ErrorSnackBar/ErrorSnackBar';
-import {selectError, selectIsInitialized} from 'common/selectors/selectors';
+import {selectError, selectError404, selectIsInitialized} from 'common/selectors/selectors';
 
 const App = () => {
     const dispatch = useAppDispatch();
     const isInitialized = useAppSelector(selectIsInitialized);
     const error = useAppSelector(selectError);
+    const error404 = useAppSelector(selectError404);
 
     useEffect(() => {
         dispatch(me());
@@ -23,7 +24,7 @@ const App = () => {
 
     return (
         <div className={s.App}>
-            <Header/>
+            {!error404 && <Header/>}
             {error && <ErrorSnackbar/>}
             <RoutesPage/>
         </div>

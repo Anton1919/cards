@@ -1,6 +1,8 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import s from './EditableSpan.module.scss';
 import editImg from 'assets/icons/edit.svg';
+import {useAppDispatch} from "app/store";
+import {setProfileName} from "features/profile/Profile/profileReducer";
 
 type EditableTtype = {
     name: string | undefined;
@@ -9,10 +11,17 @@ type EditableTtype = {
 const EditableSpan = ({name}: EditableTtype) => {
     const [text, setText] = useState(name);
     const [edit, setEdit] = useState(false);
+    const dispatch = useAppDispatch()
 
     const editModeHandler = () => {
         setEdit(!edit);
     };
+
+    useEffect(() => {
+        if (text) {
+            dispatch(setProfileName({profileName: text}))
+        }
+    }, [text])
 
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setText(e.currentTarget.value);

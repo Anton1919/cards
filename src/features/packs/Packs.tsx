@@ -4,8 +4,8 @@ import s from './Pack.module.scss';
 import HeaderPack from './header/HeaderPack';
 import {useAppDispatch, useAppSelector} from "app/store";
 import {
-    selectMax,
-    selectMin,
+    selectMax, selectMaxCardsCount,
+    selectMin, selectMinCardsCount,
     selectorPackNameSearch,
     selectorSortPack,
     selectPacks,

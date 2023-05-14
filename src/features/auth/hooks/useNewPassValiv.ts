@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { useAppDispatch } from '../../../app/store';
+import { useAppDispatch } from 'app/store';
 import { newPassword } from '../forgot-password/fogotPasswordReducer';
 import { useState } from 'react';
 

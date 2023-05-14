@@ -50,7 +50,7 @@ const Cards = () => {
         {!cards.length && isOwner
             ? <PackIsEmpty/>
             : <>
-                <CardsHeader isOwner={isOwner} packName={packName}/>
+                <CardsHeader isOwner={isOwner} packName={packName} packID={packID ?? ''}/>
                 <CardsList
                     isOwner={isOwner}
                     totalCount={totalCount}

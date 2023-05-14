@@ -145,6 +145,13 @@ const slice = createSlice({
         setIsMy: (state, action: PayloadAction<{ value: boolean }>) => {
             state.searchParams.isMy = action.payload.value
         },
+        setFilterPacks: (state, action: PayloadAction<{isMy: boolean, min: number, max: number, userId: string}>) => {
+            state.searchParams.isMy = action.payload.isMy
+            state.searchParams.user_id = action.payload.userId
+            state.searchParams.min = action.payload.min
+            state.searchParams.max = action.payload.max
+        },
+
         resetAllSettings: (state, action: PayloadAction<{ max: number }>) => {
             state.searchParams.max = action.payload.max
             state.searchParams.packName = ""
@@ -165,18 +172,12 @@ const slice = createSlice({
                 state.searchParams.page = action.payload.page;
                 state.searchParams.pageCount = action.payload.pageCount;
             })
-            // .addCase(addPackTC.fulfilled, (state, action) => {
-            //     state.cardPacks.unshift({...action.payload.newCardsPack});
-            // })
-            // .addCase(deletePack.fulfilled, (state, action) => {
-            //     const index = state.cardPacks.findIndex((el) => el._id === action.payload.deletedCardsPack._id);
-            //     state.cardPacks.splice(index, 1);
-            // });
     },
 });
 
 export const packsReducer = slice.reducer;
 export const {
+   setFilterPacks,
     setUserId,
     setPageAC,
     setPageCountAC,
