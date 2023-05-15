@@ -10,16 +10,20 @@ type PropsType = {
 
 const AddNewPackModal = ({isOpen, onClose}: PropsType) => {
     const [packName, setPackName] = useState('Enter pack name')
+    const [deckCover, setDeckCover] = useState('')
     const [privateStatus, setPrivateStatus] = useState(false)
+
     const dispatch = useAppDispatch()
 
     const saveHandler = () => {
         onClose()
-        dispatch(addPackTC({cardsPack: {name: packName, private: privateStatus, deckCover: ''}}));
+        dispatch(addPackTC({cardsPack: {name: packName, private: privateStatus, deckCover}}));
+
     }
 
     return (
         <BasePackModal
+            setDeckCover={setDeckCover}
             packName={packName}
             title={'Add new Pack'}
             isOpen={isOpen}

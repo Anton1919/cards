@@ -6,6 +6,8 @@ import {Link} from 'react-router-dom';
 import {convertDate} from 'utils/time';
 import PackCrud from './PackCrud/PackCrud';
 import {PackType} from "features/packs/api/packsAPI";
+import coverDefault from 'assets/image/coverDefault.png'
+import Picture from "common/components/CoverImg/Picture";
 
 type PacksType = {
     packs: PackType;
@@ -22,8 +24,7 @@ const PackItem = ({packs}: PacksType) => {
                 </Link>
             </TableCell>
             <TableCell align='left'>
-                {/*<Picture deckCover={pack.deckCover} defaultCover={defaultCover} />*/}
-                Картинка
+                <Picture deckCover={packs.deckCover} defaultCover={coverDefault} />
             </TableCell>
             <TableCell align='right' className={s.text}>{packs.cardsCount}</TableCell>
             <TableCell align='right' className={s.text}>{date}</TableCell>

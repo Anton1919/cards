@@ -9,6 +9,7 @@ import {useAppDispatch, useAppSelector} from 'app/store';
 import {resetAllSettings, setPackName} from '../packsReducer';
 import {selectMaxCardsCount, selectorPackNameSearch} from "../selectors/selectors";
 import AddNewPackModal from "common/components/ModalOverlay/AddNewPackModal/AddNewPackModal";
+import {PackType} from "features/packs/api/packsAPI";
 
 const HeaderPack = () => {
     const [isOpen, setIsOpen] = useState(false)

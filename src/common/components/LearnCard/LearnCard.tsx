@@ -80,7 +80,11 @@ const LearnCard = () => {
             <div className={s.learnBlock}>
                 <div className={s.question}>
                     <span>Question:</span>
-                    <p>{cardQuestion?.question}</p>
+                    {cardQuestion?.questionImg
+                        ? <img className={s.questionImg} src={cardQuestion.questionImg} alt="question img"/>
+                        : <p>{cardQuestion?.question}</p>
+                    }
+
                 </div>
 
                 <div className={s.counter}>

@@ -4,8 +4,8 @@ import s from './Pack.module.scss';
 import HeaderPack from './header/HeaderPack';
 import {useAppDispatch, useAppSelector} from "app/store";
 import {
-    selectMax, selectMaxCardsCount,
-    selectMin, selectMinCardsCount,
+    selectMax,
+    selectMin,
     selectorPackNameSearch,
     selectorSortPack,
     selectPacks,
@@ -36,7 +36,7 @@ const Packs = () => {
 
     useEffect(() => {
         dispatch(getPacks({userId}))
-    }, [page, pageCount, userId, min, max, sortPack, packName , cardName])
+    }, [page, pageCount, userId, min, max, sortPack, packName, cardName])
 
     if (!isLoggedIn) {
         return <Navigate to={PATHS.login}/>

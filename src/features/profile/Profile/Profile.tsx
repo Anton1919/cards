@@ -24,8 +24,6 @@ const Profile = () => {
     const status = useAppSelector(selectStatus)
     const profileName = useAppSelector(selectName)
 
-    console.log(profileName)
-
     useEffect(() => {
         if (ava) {
             dispatch(changeMyProfile({name: profileName || 'Name', avatar: ava}))

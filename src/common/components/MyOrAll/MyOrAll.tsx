@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './MyOrAll.module.scss';
 import {useAppDispatch, useAppSelector} from "app/store";
-import { setFilterPacks, setIsMy, setMax, setMin, setUserId} from "features/packs/packsReducer";
+import {setFilterPacks} from "features/packs/packsReducer";
 import {
     selectIsMy,
     selectMaxCardsCount,

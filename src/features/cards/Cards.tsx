@@ -8,7 +8,7 @@ import {
     selectCardPage,
     selectCardPageCount,
     selectCardQuestion,
-    selectCards,
+    selectCards, selectDeckCover,
     selectPackName,
     selectProfileID,
     selectTotalCount,
@@ -33,6 +33,7 @@ const Cards = () => {
     const isLoggedIn = useAppSelector(selectIsLoggedIn)
     const {packID} = useParams()
     const isOwner = profileID === userID
+    const packDeckCover = useAppSelector(selectDeckCover)
 
     useEffect(() => {
         dispatch(getCardsTC({cardsId: packID}))
@@ -50,7 +51,7 @@ const Cards = () => {
         {!cards.length && isOwner
             ? <PackIsEmpty/>
             : <>
-                <CardsHeader isOwner={isOwner} packName={packName} packID={packID ?? ''}/>
+                <CardsHeader packDeckCover={packDeckCover} isOwner={isOwner} packName={packName} packID={packID ?? ''}/>
                 <CardsList
                     isOwner={isOwner}
                     totalCount={totalCount}

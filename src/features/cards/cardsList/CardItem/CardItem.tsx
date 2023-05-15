@@ -6,6 +6,7 @@ import {convertDate} from "utils/time";
 import {CardsType} from "features/cards/api/cardsAPI";
 import Rating from '@mui/material/Rating'
 import s from './CardItem.module.scss'
+import {useAppSelector} from "app/store";
 
 type CardItemType = {
     card: CardsType
@@ -17,7 +18,12 @@ const CardItem = ({card, isOwner}: CardItemType) => {
 
     return (
         <TableRow sx={{'&:last-child td, &:last-child th': {border: 0}}}>
-            <TableCell className={s.text}>{card.question}</TableCell>
+            {card.questionImg
+                ?   <TableCell className={s.text}>
+                    <img className={s.questionImg} src={card.questionImg} alt="card question"/>
+                </TableCell>
+                :  <TableCell className={s.text}>{card.question}</TableCell>
+            }
             <TableCell className={s.text}>{card.answer}</TableCell>
             <TableCell className={s.text} align={'center'}>{date}</TableCell>
             <TableCell>

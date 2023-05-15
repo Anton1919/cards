@@ -1,0 +1,40 @@
+@import "src/styles/constants";
+
+.uploadContainer {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+
+  .uploadPlaceholder {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+
+    .text {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+      color: $font-dark-color;
+      opacity: 0.8;
+    }
+
+    & img {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+  }
+
+  .uploadImg {
+    width: 60%;
+    min-height: 100px;
+    margin: 10px auto;
+
+    & img {
+      border-radius: 5px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}

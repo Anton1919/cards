@@ -14,6 +14,7 @@ type InitialStateType = {
     packUserId: string
     packName: string
     question: string
+    packDeckCover: string
     shots: number
 }
 
@@ -25,6 +26,7 @@ const initialState: InitialStateType = {
     packUserId: '',
     packName: '',
     question: '',
+    packDeckCover: '',
     shots: 0
 }
 
@@ -58,7 +60,8 @@ export const addCard = createAsyncThunk('cards/addCard', async (params: AddCardT
             card: {
                 cardsPack_id: params.card.cardsPack_id,
                 question: params.card.question,
-                answer: params.card.answer
+                answer: params.card.answer,
+                questionImg: params.card.questionImg
             }
         })
         dispatch(getCardsTC({cardsId: params.card.cardsPack_id}))
@@ -87,6 +90,7 @@ export const deleteCard = createAsyncThunk('cards/deleteCard', async (cardId: st
         return rejectWithValue({});
     }
 })
+
 export const updateCard = createAsyncThunk('cards/updateCard', async (params: { cardId: string, question: string, answer: string }, {
     dispatch,
     rejectWithValue
@@ -150,6 +154,7 @@ const slice = createSlice({
                 state.packUserId = action.payload.packUserId
                 state.page = action.payload.page
                 state.pageCount = action.payload.pageCount
+                state.packDeckCover = action.payload.packDeckCover
             })
             .addCase(updatePack.fulfilled, (state, action) => {
                 state.packName = action.payload.updatedCardsPack.name

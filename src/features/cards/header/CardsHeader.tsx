@@ -13,19 +13,23 @@ import deleteIcon from "assets/icons/Delete.svg";
 import learnIcon from "assets/icons/learn.svg";
 import EditPackModal from "common/components/ModalOverlay/EditPackModal/EditPackModal";
 import DeletePackModal from "common/components/ModalOverlay/DeletePackModal/DeletePackModal";
+import defaultDeckCover from 'assets/image/coverDefault.png'
+import {selectStatus} from "common/selectors/selectors";
 
 type CardsHeaderType = {
+    packDeckCover: string
     packID: string
     isOwner: boolean
     packName: string
 }
 
-const CardsHeader = ({isOwner, packName, packID}: CardsHeaderType) => {
+const CardsHeader = ({isOwner, packName, packID, packDeckCover}: CardsHeaderType) => {
     const [isOpenEditModal, setEditModal] = useState(false)
     const [isOpenDeleteModal, setDeleteModal] = useState(false)
     const [isOpenAddNewCard, setAddModal] = useState(false)
     const cardQuestion = useAppSelector(selectCardQuestion)
     const [collapsed, setCollapsed] = useState(false)
+    const status = useAppSelector(selectStatus)
 
     const onCloseEditModal = () => {
         setEditModal(false)
@@ -57,13 +61,17 @@ const CardsHeader = ({isOwner, packName, packID}: CardsHeaderType) => {
     const contentData = [
         {id: 0, icon: editIcon, title: 'Edit', handler: editModalHandler},
         {id: 1, icon: deleteIcon, title: 'Delete', handler: deleteModalHandler},
-        {id: 2, icon: learnIcon, link: `/learn/${packID}`, title: 'Learn', handler: () => {}},
+        {
+            id: 2, icon: learnIcon, link: `/learn/${packID}`, title: 'Learn', handler: () => {
+            }
+        },
     ]
 
     return <div className={s.container}>
         {isOpenAddNewCard && <AddNewCardModal isOpen={isOpenAddNewCard} onClose={onCloseAddCardModal}/>}
 
         {isOpenEditModal && <EditPackModal packId={packID}
+                                           packDeckCover={packDeckCover}
                                            packNameFromProps={packName}
                                            isOpen={isOpenEditModal}
                                            onClose={onCloseEditModal}
@@ -94,6 +102,13 @@ const CardsHeader = ({isOwner, packName, packID}: CardsHeaderType) => {
                     <Button name={'Learn to pack'} variant={'primary'}/>}
             </div>
         </div>
+
+        {status === 'loading' ? '' :
+            <div className={s.packDeckCover}>
+                <img src={packDeckCover ? packDeckCover : defaultDeckCover} alt="pack deck cover"/>
+            </div>
+        }
+
         <div className={s.search}>
             <Search searchParam={cardQuestion} actionCreator={setCardQuestion}/>
         </div>

@@ -1,22 +1,28 @@
 import React, {ChangeEvent, useState} from 'react';
 import ModalOverlay from "common/components/ModalOverlay/ModalOverlay";
-import s from "common/components/ModalOverlay/AddNewPackModal/AddNewPackModal.module.scss";
+import s from './BasePackModal.module.scss'
 import close from "assets/icons/close.svg";
 import FieldError from "common/components/FieldError/FieldError";
 import Button from "common/components/Button/Button";
+import UploadCover from "common/components/UploadCover/UploadCover";
+import defaultCover from "assets/image/coverDefault.png";
 
 type PropsType = {
+    packsDeckCover?: string
     packName: string
     title: string
     isOpen: boolean
     onClose: (value: boolean) => void
     thunkCreator: () => void
     setPackName: (value: string) => void
+    setDeckCover: (value: string) => void
     setPrivateStatus: (value: boolean) => void
     privateStatus: boolean
 }
 
 const BasePackModal = ({
+                           packsDeckCover,
+                           setDeckCover,
                            title,
                            isOpen,
                            onClose,
@@ -79,6 +85,8 @@ const BasePackModal = ({
                     : <p className={s.name} onClick={editModeHandler}>{packName}</p>}
                 {error && <FieldError errorMessage={error}/>}
             </div>
+
+            <UploadCover coverPicture={packsDeckCover || defaultCover} setDeckCover={setDeckCover}/>
 
             <div className={s.private}>
                 <input type="checkbox" checked={privateStatus} onChange={changePrivateHandler}/>

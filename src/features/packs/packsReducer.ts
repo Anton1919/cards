@@ -4,6 +4,7 @@ import {setAppStatus} from 'app/appReducer';
 import {AxiosError} from 'axios';
 import {handleServerAppError} from 'utils/error-utils';
 import {AppRootStateType} from "app/store";
+import {getCardsTC} from "features/cards/cardsReducer";
 
 type InitialStateType = {
     cardPacks: PackType[];
@@ -106,7 +107,7 @@ export const updatePack = createAsyncThunk(
         dispatch(setAppStatus({status: 'loading'}));
         try {
             const res = await packsAPI.editPack(param);
-            dispatch(setAppStatus({status: 'succeeded'}));
+            dispatch(getCardsTC({cardsId: res.data.updatedCardsPack._id }))
             return res.data;
         } catch (e) {
             const error = e as AxiosError;
@@ -171,6 +172,10 @@ const slice = createSlice({
                 state.minCardsCount = action.payload.minCardsCount;
                 state.searchParams.page = action.payload.page;
                 state.searchParams.pageCount = action.payload.pageCount;
+            })
+            .addCase(updatePack.fulfilled, (state, action) => {
+                const index = state.cardPacks.findIndex(el => el._id === action.payload.updatedCardsPack._id)
+                state.cardPacks[index] = {...state.cardPacks[index], ...action.payload.updatedCardsPack}
             })
     },
 });

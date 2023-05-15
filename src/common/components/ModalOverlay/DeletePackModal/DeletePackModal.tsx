@@ -61,6 +61,8 @@
 import BaseDeleteModal from "common/components/ModalOverlay/BaseModals/BaseDeleteModal/BaseDeleteModal";
 import {useAppDispatch} from "app/store";
 import {deletePack} from "features/packs/packsReducer";
+import {useNavigate} from "react-router-dom";
+import {PATHS} from "common/routes/PATHS";
 
 type PropsType = {
     packName: string
@@ -71,10 +73,12 @@ type PropsType = {
 
 const DeletePackModal = ({packId, packName, isOpen, onClose}: PropsType) => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate()
 
     const deletePackHandler = () => {
         onClose(false)
         dispatch(deletePack(packId));
+        navigate(PATHS.packsList)
     }
 
     return (

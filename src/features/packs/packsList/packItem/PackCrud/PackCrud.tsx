@@ -7,7 +7,7 @@ import {useAppSelector} from 'app/store';
 import {selectIdForPackCrud} from "../../../selectors/selectors";
 import DeletePackModal from "common/components/ModalOverlay/DeletePackModal/DeletePackModal";
 import EditPackModal from "common/components/ModalOverlay/EditPackModal/EditPackModal";
-import {PackType} from "features/packs/api/packsAPI";
+import {packsAPI, PackType} from "features/packs/api/packsAPI";
 import {Link} from "react-router-dom";
 import IconButton from "@mui/material/IconButton";
 
@@ -43,6 +43,7 @@ const PackCrud = ({usersID, packId, packs}: PackCrudType) => {
                 <div className={s.icon}>
                     <img src={edit} alt={'edit icon'} onClick={openEditModalHandler}/>
                     {isOpen && <EditPackModal
+                        packDeckCover={packs.deckCover}
                         packId={packs._id}
                         packNameFromProps={packs.name}
                         isOpen={isOpen}

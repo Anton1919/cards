@@ -21,6 +21,7 @@ const EditCardModal = ({card, onClose, isOpen}: PropsType) => {
 
     return (
         <BaseCardModal
+            questionImg={card.questionImg}
             title={'Edit card'}
             question={question}
             answer={answer}
